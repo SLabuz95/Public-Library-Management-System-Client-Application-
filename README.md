@@ -12,3 +12,4 @@ Podstawowe założenia dotyczące tego projektu znajdują się w pliku:
 
 - "podstawoweZałożeniaAplikacjiKlienckiej.pdf".
 
+Wykonawcy: Sebastian Łabuz
