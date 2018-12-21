@@ -1,0 +1,5 @@
+Przykład zawiera sposób wykorzystania klas wirtualnych.
+
+Istotne pliki to PromptPanel jako główna klasa, PromptList jako klasa zawierająca listę elementów (wirtualnych klas),
+PromptElement jako element listy będący wirtualnym elementem listy (on nigdy nie powstanie) oraz dowolny plik rozpoczynający się 
+na PromptElement... jest fizyczną klasą rozszerzającą klasę wirtualną.
