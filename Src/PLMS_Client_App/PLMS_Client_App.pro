@@ -7,9 +7,12 @@ HEADERS += \
     app.hpp \
     appwindow.hpp \
     appwindowstatenum.hpp \
-    windowmacros.hpp
+    windowmacros.hpp \
+    menu.hpp \
+    mainmacros.hpp
 
 SOURCES += \
     app.cpp \
     main.cpp \
-    appwindow.cpp
+    appwindow.cpp \
+    menu.cpp

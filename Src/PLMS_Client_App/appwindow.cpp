@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 AppWindow::AppWindow(App* parent)
-    : QWidget(), parent(parent)
+    : QWidget(), parent(parent), menu(this)
 {
     init();
     setWindow();
@@ -20,6 +20,14 @@ AppWindow::~AppWindow(){
 
 App* AppWindow::getParent(){
     return parent;
+}
+
+AppWindowStat AppWindow::getLastAppWindowStat(){
+    return *(appWindowStat + 1);
+}
+
+AppWindowStat AppWindow::getCurrentAppWindowStat(){
+    return *appWindowStat;
 }
 
 void AppWindow::runTimers(){
