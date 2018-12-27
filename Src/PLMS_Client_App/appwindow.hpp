@@ -13,6 +13,7 @@
 #include <QWidget>
 #include "appwindowstatenum.hpp"
 #include "menu.hpp"
+#include "toolbar.hpp"
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +46,9 @@ class AppWindow : public QWidget{
 
     // Menu
     Menu menu;
+
+    // ToolBar
+    ToolBar toolBar;
 
     public: // public functions +++
     // Get Functions --------------------------------------
@@ -80,6 +84,8 @@ class AppWindow : public QWidget{
     // Delete Widgets
     void deleteWidgets();
 
+    // Clear Memory
+    void clearMemory();
 
 };
 

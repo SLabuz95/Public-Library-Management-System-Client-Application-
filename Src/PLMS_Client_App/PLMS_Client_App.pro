@@ -9,10 +9,12 @@ HEADERS += \
     appwindowstatenum.hpp \
     windowmacros.hpp \
     menu.hpp \
-    mainmacros.hpp
+    mainmacros.hpp \
+    toolbar.hpp
 
 SOURCES += \
     app.cpp \
     main.cpp \
     appwindow.cpp \
-    menu.cpp
+    menu.cpp \
+    toolbar.cpp

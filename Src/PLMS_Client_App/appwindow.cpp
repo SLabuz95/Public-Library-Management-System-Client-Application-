@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 AppWindow::AppWindow(App* parent)
-    : QWidget(), parent(parent), menu(this)
+    : QWidget(), parent(parent), menu(this), toolBar(this)
 {
     init();
     setWindow();
@@ -15,7 +15,7 @@ AppWindow::AppWindow(App* parent)
 }
 
 AppWindow::~AppWindow(){
-
+    clearMemory();
 }
 
 App* AppWindow::getParent(){
@@ -61,3 +61,6 @@ void AppWindow::deleteWidgets(){
     // _PH_ To Implement (Delete only pointers (not element like parent))
 }
 
+void AppWindow::clearMemory(){
+    // _PH_ To Implement
+}

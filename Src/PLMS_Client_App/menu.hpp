@@ -73,6 +73,7 @@ class Menu : public QMenuBar{
        QAction* booksActionTM = nullptr;*/
     QAction* libraryActionTM = nullptr;
    // QAction* logoutActionAM = nullptr;
+    // ---------------------------------------
 
     // Actions for Help Menu
     QAction appInfoActionHM;
@@ -171,24 +172,15 @@ class Menu : public QMenuBar{
     }
 
     // Connect Actions For Tools Menu
-    inline void connectActionsForToolsMenu(){
-        /* _PH_ switch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
-            case ... :
-            // Add actions to Tools Menu -------------------
-
-            break;
-            default:
-
-            break;
-         }
-         */
-    }
+    void connectActionsForToolsMenu();
 
     // Connect Actions For Help Menu
     inline void connectActionsForHelpMenu(){
         connect(&appInfoActionHM, SIGNAL(triggered()), this, SLOT(appInfoActionHMTriggered()));
         connect(&helpActionHM, SIGNAL(triggered()), this, SLOT(helpActionHMTriggered()));
     }
+
+    void disconnectActions();
 
     public slots: // public slots +++
 
