@@ -2,22 +2,17 @@
 #define APPWINDOW_HPP
 
 // ------------------ Macros --------------------------------------------
-/* Macros In App Class (app.hpp)
-#define APP_NAME ("Aplikacja biblioteki publicznej")
-#define APP_VERSION ("ver 1.0")
 
-#define SET_PTR_DO(ptr, newPtr) {if(ptr) delete ptr; ptr = newPtr;}
-#define SET_PTR_NDO(ptr) {ptr = newPtr;}
-*/
 
-#define WINDOW_STATUS_SAVE(windowStatusPTR) *(windowStatusPTR + 1) = *windowStatusPTR;
-
+// Include macros
+#include "mainmacros.hpp"
+#include "windowmacros.hpp"
 // ----------------------------------------------------------------------
 
 // ------------------ Includes ------------------------------------------
 #include <QWidget>
 #include "appwindowstatenum.hpp"
-#include "windowmacros.hpp"
+#include "menu.hpp"
 
 // ----------------------------------------------------------------------
 
@@ -46,11 +41,16 @@ class AppWindow : public QWidget{
     App* parent = nullptr;
 
     // Window Stat
-    AppWindowStat appWindowStat[2] = {APP_WINDOW_STAT_USER_LOGOUT, APP_WINDOW_STAT_USER_LOGOUT};
+    AppWindowStat appWindowStat[2] = {APP_WINDOW_STAT_LOGIN, APP_WINDOW_STAT_LOGIN};
+
+    // Menu
+    Menu menu;
 
     public: // public functions +++
     // Get Functions --------------------------------------
     App* getParent();
+    AppWindowStat getLastAppWindowStat();
+    AppWindowStat getCurrentAppWindowStat();
 
     // -----------------------------------------------------
     // Set Functions ---------------------------------------

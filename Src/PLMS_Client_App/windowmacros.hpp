@@ -3,8 +3,10 @@
 
 // File for graphical elements macros (Start with command to group up all)
 
-
-
+// Menu -------------------------------------------------------------------------------------
+// Menu Bar
+#define MENU_BAR_HEIGHT (20)
+//-------------------------------------------------------------------------------------------
 
 // App Window (Always on the bottom) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define APP_WINDOW_WIDTH (/* _PH_ TEST*/ 500)

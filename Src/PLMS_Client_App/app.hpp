@@ -2,11 +2,8 @@
 #define APP_HPP
 
 // ------------------ Macros --------------------------------------------
-#define APP_NAME ("Aplikacja biblioteki publicznej")
-#define APP_VERSION ("ver 1.0")
 
-#define SET_PTR_DO(ptr, newPtr) {if(ptr) delete ptr; ptr = newPtr;}
-#define SET_PTR_NDO(ptr) {ptr = newPtr;}
+// Include macros
 
 // ----------------------------------------------------------------------
 
