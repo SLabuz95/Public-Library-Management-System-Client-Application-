@@ -10,11 +10,25 @@ HEADERS += \
     windowmacros.hpp \
     menu.hpp \
     mainmacros.hpp \
-    toolbar.hpp
+    toolbar.hpp \
+    promptelement.hpp \
+    promptlist.hpp \
+    promptpanel.hpp \
+    promptpanelmaximizebutton.hpp \
+    promptpanelminimizebutton.hpp \
+    promptpanelstatusenum.hpp \
+    prompttypeenum.hpp \
+    promptelementexpandbutton.hpp
 
 SOURCES += \
     app.cpp \
     main.cpp \
     appwindow.cpp \
     menu.cpp \
-    toolbar.cpp
+    toolbar.cpp \
+    promptelement.cpp \
+    promptlist.cpp \
+    promptpanel.cpp \
+    promptpanelmaximizebutton.cpp \
+    promptpanelminimizebutton.cpp \
+    promptelementexpandbutton.cpp

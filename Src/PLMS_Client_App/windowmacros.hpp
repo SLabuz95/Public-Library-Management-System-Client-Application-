@@ -12,7 +12,19 @@
 #define TOOL_BAR_HEIGHT (20)
 //-------------------------------------------------------------------------------------------
 
-// App Window (Always on the bottom) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Prompt Panel ---------------------------------------------------------------------------------
+// Custom Buttons
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_WIDTH ()
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_HEIGHT ()
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_WIDTH ()
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_HEIGHT ()
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_WIDTH ()
+#define PROMPT_PANEL_MAXIMIZE_BUTTON_HEIGHT ()
+
+
+// ----------------------------------------------------------------------------------------------
+
+// App Window ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define APP_WINDOW_WIDTH (/* _PH_ TEST*/ 500)
 #define APP_WINDOW_HEIGHT (/* _PH_ TEST*/ 300)
 
