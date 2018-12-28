@@ -27,6 +27,7 @@ void PromptPanelMinimizeButton::setWindow(){
 }
 
 void PromptPanelMinimizeButton::createWidgets(){
+    serverStatusLabel = new QLabel(this);
     arrowPixmap = new QLabel(this);
     warningPixmap = new QLabel(this);
     numberOfWarnings = new QLabel(this);
@@ -36,6 +37,9 @@ void PromptPanelMinimizeButton::createWidgets(){
 
 void PromptPanelMinimizeButton::createLayout(){
     repaint();
+    serverStatusLabel->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_SERVER_STATUS_LABEL_X, PROMPT_PANEL_MINIMIZE_BUTTON_SERVER_STATUS_LABEL_Y, PROMPT_PANEL_MINIMIZE_BUTTON_SERVER_STATUS_LABEL_WIDTH, PROMPT_PANEL_MINIMIZE_BUTTON_SERVER_STATUS_LABEL_HEIGHT);
+    setServerStatus(SERVER_STATUS_INITIALIZATION_TEXT);
+    serverStatusLabel->show();
     arrowPixmap->setScaledContents(true);
     arrowPixmap->setAlignment(Qt::AlignCenter);
     arrowPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_X,PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_Y,PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_WIDTH, PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_HEIGHT);
@@ -110,6 +114,10 @@ void PromptPanelMinimizeButton::repaint(){
         arrowPixmap->setPixmap(PROMPT_PANEL_MINIMIZE_BUTTON_DOWN_EXTEND_ARROW_ICON);
         break;
     }
+}
+
+void PromptPanelMinimizeButton::setServerStatus(QString status){
+    serverStatusLabel->setText(SERVER_STATUS_TEXT(status));
 }
 
 

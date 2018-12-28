@@ -127,6 +127,18 @@ void PromptPanel::setStatus(PromptPanelStatus set){
     reload(false);
 }
 
+void PromptPanel::setServerStatusNoConnection(){
+    minimizeButton->setServerStatus(SERVER_STATUS_NO_CONNECTION_TEXT);
+}
+
+void PromptPanel::setServerStatusConnection(){
+    minimizeButton->setServerStatus(SERVER_STATUS_CONNECTION_TEXT);
+}
+
+void PromptPanel::setServerStatusInitalization(){
+    minimizeButton->setServerStatus(SERVER_STATUS_INITIALIZATION_TEXT);
+}
+
 void PromptPanel::reload(bool reloadSA){
     if(reloadSA){
         setWindow();

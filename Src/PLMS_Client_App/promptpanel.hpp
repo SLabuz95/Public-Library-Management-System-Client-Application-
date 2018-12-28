@@ -59,8 +59,12 @@ public:
     PromptList* getPromptList();
     PromptPanelStatus* getStatus();
     // -----------------------------------------
+
     // Set Functions ---------------------------
     void setStatus(PromptPanelStatus);
+    void setServerStatusNoConnection();
+    void setServerStatusConnection();
+    void setServerStatusInitalization();
     // -----------------------------------------
 
     void reload(bool);

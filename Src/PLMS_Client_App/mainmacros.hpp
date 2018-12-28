@@ -69,6 +69,13 @@
 #define PROMPT_ELEMENT_EXPAND_BUTTON_DOWN_EXTEND_ARROW_ICON QPixmap(QString(":/icons/downExtendArrowIcon.png"))
 // -------------------------------------------------------------------------------------------------------------
 
+// Server Status Text Generator ---------------------------------------------------------------------------------
+#define SERVER_STATUS_TEXT(status) (QString("Stan serwera: ") + status)
+#define SERVER_STATUS_NO_CONNECTION_TEXT (QString("Brak połączenia"))
+#define SERVER_STATUS_CONNECTION_TEXT (QString("Połączony"))
+#define SERVER_STATUS_INITIALIZATION_TEXT (QString("Inicjowanie"))
+//--------------------------------------------------------------------------------------------------------------
+
 // Status Bar Macros -------------------------------------------------------------------------------------------
 #define STATUS_BAR_READY_TEXT (QString("Gotowy"))
 // ------------------------------------------------------------------------------------------------------------

@@ -30,6 +30,7 @@ private:
     PromptPanel *parent = nullptr;
 
     // Elementy
+    QLabel *serverStatusLabel = nullptr;
     QLabel *arrowPixmap = nullptr;
     QLabel *warningPixmap = nullptr;
     QLabel *numberOfWarnings = nullptr;
@@ -52,6 +53,7 @@ public:
     void setNumbOfWarnings(uint);
     void setNumbOfInfos(uint);
     PromptPanel* getParent();
+    void setServerStatus(QString);
 
     // Funkcja odświeżenia informacji na podstawie stanu rodzica
     void repaint();    
