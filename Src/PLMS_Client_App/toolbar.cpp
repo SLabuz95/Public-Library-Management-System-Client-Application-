@@ -39,7 +39,7 @@ void ToolBar::createToolBar(){
 }
 
 void ToolBar::clearMemory(){
-    SET_PTR_DO(yourAcountAction, nullptr);
+    SET_PTR_DO(yourAccountAction, nullptr);
     SET_PTR_DO(usersAction, nullptr);
     SET_PTR_DO(booksAction, nullptr);
     SET_PTR_DO(logoutAction, nullptr);
@@ -81,7 +81,7 @@ void ToolBar::deleteDynamicActions(){
     disconnectDynamicActions();
 
     // Remove Dynamic Actions from ToolBar
-    removeAction(yourAcountAction);
+    removeAction(yourAccountAction);
     removeAction(usersAction);
     removeAction(booksAction);
     removeAction(logoutAction);
@@ -93,7 +93,7 @@ void ToolBar::deleteDynamicActions(){
 
 void ToolBar::disconnectDynamicActions(){
     // Disconnect Dynamic Actions
-    disconnect(yourAcountAction, SIGNAL(triggered()), this, SLOT(yourAcountActionTriggered()));
+    disconnect(yourAccountAction, SIGNAL(triggered()), this, SLOT(yourAccountActionTriggered()));
     disconnect(usersAction, SIGNAL(triggered()), this, SLOT(usersActionTriggered()));
     disconnect(booksAction, SIGNAL(triggered()), this, SLOT(booksActionTriggered()));
     disconnect(logoutAction, SIGNAL(triggered()), this, SLOT(logoutActionTriggered()));
@@ -116,7 +116,7 @@ void ToolBar::registerActionTriggered(){
     // _PH_
 }
 
-void ToolBar::yourAcountActionTriggered(){
+void ToolBar::yourAccountActionTriggered(){
     // _PH_
 }
 

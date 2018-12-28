@@ -3,7 +3,6 @@
 
 // ------------------ Macros --------------------------------------------
 
-
 // Include macros
 #include "mainmacros.hpp"
 #include "windowmacros.hpp"
@@ -14,6 +13,8 @@
 #include "appwindowstatenum.hpp"
 #include "menu.hpp"
 #include "toolbar.hpp"
+#include "promptpanel.hpp"
+#include <QStatusBar>
 
 // ----------------------------------------------------------------------
 
@@ -49,6 +50,12 @@ class AppWindow : public QWidget{
 
     // ToolBar
     ToolBar toolBar;
+
+    // Prompt Panel
+    PromptPanel promptPanel;
+
+    // Status Bar
+    QStatusBar statusBar;
 
     public: // public functions +++
     // Get Functions --------------------------------------

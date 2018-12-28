@@ -8,6 +8,7 @@
 #include"promptpanelmaximizebutton.hpp"
 #include"promptelement.hpp"
 #include<QLineEdit>
+#include<QEvent>
 
 PromptPanel::PromptPanel(AppWindow *parent)
     :parent(parent)
@@ -35,13 +36,13 @@ void PromptPanel::init(){
 void PromptPanel::setWindow(){
     switch(*status){
     case PROMPT_PANEL_HIDDEN:
-        setGeometry(0, APP_WINDOW_HEIGHT - STATUS_BAR_HEIGHT - PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_HEIGHT, PROMPT_PANEL_WIDTH, PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_HEIGHT);
+        setGeometry(PROMPT_PANEL_HIDDEN_X, PROMPT_PANEL_HIDDEN_Y, PROMPT_PANEL_HIDDEN_WIDTH, PROMPT_PANEL_HIDDEN_HEIGHT);
         break;
     case PROMPT_PANEL_MAXIMIZED:
-        setGeometry(0,MENU_BAR_HEIGHT + TOOL_BAR_HEIGHT,PROMPT_PANEL_WIDTH, APP_WINDOW_HEIGHT - MENU_BAR_HEIGHT - TOOL_BAR_HEIGHT - STATUS_BAR_HEIGHT);
+        setGeometry(PROMPT_PANEL_MAXIMIZE_X,PROMPT_PANEL_MAXIMIZE_Y,PROMPT_PANEL_MAXIMIZE_WIDTH, PROMPT_PANEL_MAXIMIZE_HEIGHT);
         break;
     case PROMPT_PANEL_MINIMIZED:
-        setGeometry(0,APP_WINDOW_HEIGHT - PROMPT_PANEL_DEFAULT_HEIGHT - STATUS_BAR_HEIGHT,PROMPT_PANEL_WIDTH, PROMPT_PANEL_DEFAULT_HEIGHT);
+        setGeometry(PROMPT_PANEL_MINIMIZE_X,PROMPT_PANEL_MINIMIZE_Y,PROMPT_PANEL_MINIMIZE_WIDTH, PROMPT_PANEL_MINIMIZE_HEIGHT);
         break;
     }
 }
@@ -67,19 +68,19 @@ void PromptPanel::createWidgets(){
 void PromptPanel::createLayout(){
 switch(*status){
     default:
-        promptList->move(0, PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_HEIGHT);
+        promptList->move(PROMPT_LIST_X, PROMPT_PANEL_MAXIMIZE_Y);
         promptSA->setStyleSheet("background-color: transparent");
         promptSA->verticalScrollBar()->setStyleSheet("QScrollBar::vertical{background: transparent; width: 5px;} QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical, QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{border: none; background: none; color: none;} QScrollBar::handle:vertical{background-color: white; border: 1px solid black;}");
         promptSA->setFrameShape(QFrame::NoFrame);
         promptSA->setWidget(promptList);
-        promptSA->setGeometry(0, PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_HEIGHT,PROMPT_LIST_WIDTH, this->height() - 25 - 25);
+        promptSA->setGeometry(PROMPT_LIST_SA_X, PROMPT_LIST_SA_Y,PROMPT_LIST_SA_WIDTH, PROMPT_LIST_SA_HEIGHT);
         promptSA->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         promptSA->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         promptSA->show();
         maximizeButton->move(0, 0);
         maximizeButton->show();
     case PROMPT_PANEL_HIDDEN:
-        minimizeButton->move(0,this->height() - PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_HEIGHT);
+        minimizeButton->move(PROMPT_PANEL_MINIMIZE_BUTTON_X,PROMPT_PANEL_MINIMIZE_BUTTON_Y);
         minimizeButton->show();
     break;
     }
@@ -200,4 +201,59 @@ void PromptPanel::writeNumbOfPrompts(){
     }
     minimizeButton->setNumbOfInfos(numbOfInfos);
     minimizeButton->setNumbOfWarnings(numbOfWarnings);
+}
+
+bool PromptPanel::eventFilter(QObject* obj, QEvent* ev){
+    switch(*status){
+    case PROMPT_PANEL_HIDDEN:
+        switch(ev->type()){
+        case QEvent::MouseButtonRelease:
+            if(obj == minimizeButton){
+                setStatus(*(status + 1));
+                return true;
+            }
+            break;
+        default:
+            break;
+        }
+        break;
+    case PROMPT_PANEL_MAXIMIZED:
+        switch(ev->type()){
+        case QEvent::MouseButtonRelease:
+            if(obj == maximizeButton){
+                setStatus(PROMPT_PANEL_MINIMIZED);
+                return true;
+            }
+            if(obj == minimizeButton){
+                setStatus(PROMPT_PANEL_HIDDEN);
+                return true;
+            }
+            promptList->matchEvents(obj, ev);
+            return true;
+            break;
+        default:
+            break;
+        }
+        break;
+    case PROMPT_PANEL_MINIMIZED:
+        switch(ev->type()){
+        case QEvent::MouseButtonRelease:
+            if(obj == maximizeButton){
+                setStatus(PROMPT_PANEL_MAXIMIZED);
+                return true;
+            }
+            if(obj == minimizeButton){
+                setStatus(PROMPT_PANEL_HIDDEN);
+                break;
+            }
+            promptList->matchEvents(obj, ev);
+            return true;
+        default:
+            break;
+        }
+            break;
+        default:
+            break;
+    }
+    return QObject::eventFilter(obj,ev);
 }

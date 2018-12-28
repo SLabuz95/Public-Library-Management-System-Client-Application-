@@ -38,23 +38,23 @@ void PromptPanelMinimizeButton::createLayout(){
     repaint();
     arrowPixmap->setScaledContents(true);
     arrowPixmap->setAlignment(Qt::AlignCenter);
-    arrowPixmap->setGeometry((PROMPT_PANEL_MAXIMIZE_BUTTON_WIDTH - PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_WIDTH) * 0.5,0,PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_WIDTH,25);
+    arrowPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_X,PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_Y,PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_WIDTH, PROMPT_PANEL_MINIMIZE_BUTTON_ARROW_HEIGHT);
     arrowPixmap->show();
     informationPixmap->setScaledContents(true);
     informationPixmap->setAlignment(Qt::AlignCenter);
-    informationPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WIDTH - 2 * PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,0,PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,25);
-    informationPixmap->setPixmap(QPixmap(INFORMATION_PROMPT_ICON));
+    informationPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WARNING_ICON_X,PROMPT_PANEL_MINIMIZE_BUTTON_WARNING_ICON_Y,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_WIDTH,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_HEIGHT);
+    informationPixmap->setPixmap(PROMPT_PANEL_MINIMIZE_BUTTON_INFO_ICON);
     informationPixmap->show();
-    numberOfInformations->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WIDTH - PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,0,PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,25);
+    numberOfInformations->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WARNING_NUMB_X, PROMPT_PANEL_MINIMIZE_BUTTON_WARNING_NUMB_Y,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_WIDTH, PROMPT_PANEL_MINIMIZE_BUTTON_INFO_HEIGHT);
     numberOfInformations->setAlignment(Qt::AlignCenter);
     numberOfInformations->setText("0");
     numberOfInformations->show();
     warningPixmap->setScaledContents(true);
     warningPixmap->setAlignment(Qt::AlignCenter);
-    warningPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WIDTH - 4 * PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,0,PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,25);
-    warningPixmap->setPixmap(QPixmap(ERROR_PROMPT_ICON));
+    warningPixmap->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_ERROR_ICON_X,PROMPT_PANEL_MINIMIZE_BUTTON_ERROR_ICON_Y,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_WIDTH, PROMPT_PANEL_MINIMIZE_BUTTON_INFO_HEIGHT);
+    warningPixmap->setPixmap(PROMPT_PANEL_MINIMIZE_BUTTON_ERROR_ICON);
     warningPixmap->show();
-    numberOfWarnings->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_WIDTH - 3 * PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,0,PROMPT_PANEL_MINIMIZE_BUTTON_LABEL_WIDTH,25);
+    numberOfWarnings->setGeometry(PROMPT_PANEL_MINIMIZE_BUTTON_ERROR_NUMB_X,PROMPT_PANEL_MINIMIZE_BUTTON_ERROR_NUMB_Y,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_WIDTH,PROMPT_PANEL_MINIMIZE_BUTTON_INFO_HEIGHT);
     numberOfWarnings->setAlignment(Qt::AlignCenter);
     numberOfWarnings->setText("0");
     numberOfWarnings->show();
@@ -104,10 +104,10 @@ void PromptPanelMinimizeButton::setNumbOfInfos(uint numb){
 void PromptPanelMinimizeButton::repaint(){
     switch(*parent->getStatus()){
     case PROMPT_PANEL_HIDDEN:
-        arrowPixmap->setPixmap(QPixmap(UP_EXTEND_ARROW_ICON));
+        arrowPixmap->setPixmap(PROMPT_PANEL_MINIMIZE_BUTTON_UP_EXTEND_ARROW_ICON);
         break;
     default:
-        arrowPixmap->setPixmap(QPixmap(DOWN_EXTEND_ARROW_ICON));
+        arrowPixmap->setPixmap(PROMPT_PANEL_MINIMIZE_BUTTON_DOWN_EXTEND_ARROW_ICON);
         break;
     }
 }

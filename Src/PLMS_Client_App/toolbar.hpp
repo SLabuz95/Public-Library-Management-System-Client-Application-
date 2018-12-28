@@ -46,7 +46,7 @@ class ToolBar : public QToolBar{
 
     // Dynamic elements
     // - Actions for Administrator ------------
-    QAction* yourAcountAction = nullptr;
+    QAction* yourAccountAction = nullptr;
     QAction* usersAction = nullptr;
     QAction* booksAction = nullptr;
     QAction* logoutAction = nullptr;
@@ -54,7 +54,7 @@ class ToolBar : public QToolBar{
     // ----------------------------------------
 
     // - Actions for Librarian-----------------
-    // QAction* yourAcountAction = nullptr;
+    // QAction* yourAccountAction = nullptr;
     /* !!!!!!! Used as ReadersAction
        QAction* usersAction = nullptr;*/
     // QAction* booksAction = nullptr;
@@ -62,7 +62,7 @@ class ToolBar : public QToolBar{
     // ---------------------------------------
 
     // - Actions For Readers -----------------
-    // QAction* yourAcountAction = nullptr;
+    // QAction* yourAccountAction = nullptr;
     /* !!!!!!! Used as yourBooksAction
        QAction* booksAction = nullptr;*/
     QAction* libraryAction = nullptr;
@@ -132,7 +132,7 @@ class ToolBar : public QToolBar{
     void loginActionTriggered();
     void registerActionTriggered();
 
-    void yourAcountActionTriggered();
+    void yourAccountActionTriggered();
     void usersActionTriggered();
     void booksActionTriggered();
     void logoutActionTriggered();

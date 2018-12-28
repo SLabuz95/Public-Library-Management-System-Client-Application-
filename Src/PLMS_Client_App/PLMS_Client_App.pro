@@ -18,7 +18,10 @@ HEADERS += \
     promptpanelminimizebutton.hpp \
     promptpanelstatusenum.hpp \
     prompttypeenum.hpp \
-    promptelementexpandbutton.hpp
+    promptelementexpandbutton.hpp \
+    dialogresultenum.hpp \
+    dialogtypeenum.hpp \
+    dialog.hpp
 
 SOURCES += \
     app.cpp \
@@ -31,4 +34,8 @@ SOURCES += \
     promptpanel.cpp \
     promptpanelmaximizebutton.cpp \
     promptpanelminimizebutton.cpp \
-    promptelementexpandbutton.cpp
+    promptelementexpandbutton.cpp \
+    dialog.cpp
+
+RESOURCES += \
+    icons.qrc

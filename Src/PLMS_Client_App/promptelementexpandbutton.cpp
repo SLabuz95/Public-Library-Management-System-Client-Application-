@@ -34,7 +34,7 @@ void PromptElementExpandButton::createLayout(){
     repaint();
     expandPixmap->setScaledContents(true);
     expandPixmap->setAlignment(Qt::AlignCenter);
-    expandPixmap->setGeometry((PROMPT_ELEMENT_EXPAND_BUTTON_WIDTH - PROMPT_ELEMENT_EXPAND_BUTTON_LABEL_WIDTH) * 0.5 ,0,PROMPT_ELEMENT_EXPAND_BUTTON_LABEL_WIDTH,PROMPT_ELEMENT_EXPAND_BUTTON_LABEL_HEIGHT);
+    expandPixmap->setGeometry(PROMPT_ELEMENT_EXPAND_BUTTON_ARROW_X, PROMPT_ELEMENT_EXPAND_BUTTON_ARROW_Y, PROMPT_ELEMENT_EXPAND_BUTTON_ICON_WIDTH,PROMPT_ELEMENT_EXPAND_BUTTON_ICON_HEIGHT);
     expandPixmap->show();
 }
 
@@ -57,8 +57,8 @@ PromptElement* PromptElementExpandButton::getParent(){
 
 void PromptElementExpandButton::repaint(){
     if(parent->isExpanded()){
-        expandPixmap->setPixmap(QPixmap(UP_EXTEND_ARROW_ICON));
+        expandPixmap->setPixmap(PROMPT_ELEMENT_EXPAND_BUTTON_UP_EXTEND_ARROW_ICON);
     }else{
-        expandPixmap->setPixmap(QPixmap(DOWN_EXTEND_ARROW_ICON));
+        expandPixmap->setPixmap(PROMPT_ELEMENT_EXPAND_BUTTON_DOWN_EXTEND_ARROW_ICON);
     }
 }

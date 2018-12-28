@@ -34,7 +34,7 @@ void PromptPanelMaximizeButton::createLayout(){
     repaint();
     arrowPixmap->setScaledContents(true);
     arrowPixmap->setAlignment(Qt::AlignCenter);
-    arrowPixmap->setGeometry((PROMPT_PANEL_MAXIMIZE_BUTTON_WIDTH - PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_WIDTH) * 0.5,0,PROMPT_PANEL_MAXIMIZE_BUTTON_LABEL_WIDTH,25);
+    arrowPixmap->setGeometry(PROMPT_PANEL_MAXIMIZE_BUTTON_ARROW_X,PROMPT_PANEL_MAXIMIZE_BUTTON_ARROW_Y,PROMPT_PANEL_MAXIMIZE_BUTTON_ARROW_WIDTH,PROMPT_PANEL_MAXIMIZE_BUTTON_ARROW_HEIGHT);
     arrowPixmap->show();
 }
 
@@ -58,12 +58,10 @@ PromptPanel* PromptPanelMaximizeButton::getParent(){
 void PromptPanelMaximizeButton::repaint(){
     switch(*parent->getStatus()){
     case PROMPT_PANEL_MAXIMIZED:
-    {
-        arrowPixmap->setPixmap(QPixmap(DOWN_EXTEND_ARROW_ICON));
-    }
+        arrowPixmap->setPixmap(PROMPT_PANEL_MAXIMIZE_BUTTON_DOWN_EXTEND_ARROW_ICON);
         break;
     case PROMPT_PANEL_MINIMIZED:
-        arrowPixmap->setPixmap(QPixmap(UP_EXTEND_ARROW_ICON));
+        arrowPixmap->setPixmap(PROMPT_PANEL_MAXIMIZE_BUTTON_UP_EXTEND_ARROW_ICON);
         break;
     default:
         break;

@@ -51,7 +51,7 @@ class Menu : public QMenuBar{
 
     // Actions for Tools Menu:
     // - Actions for Administrator ------------
-    QAction* yourAcountActionTM = nullptr;
+    QAction* yourAccountActionTM = nullptr;
     QAction* usersActionTM = nullptr;
     QAction* booksActionTM = nullptr;
     QAction* logoutActionTM = nullptr;
@@ -59,7 +59,7 @@ class Menu : public QMenuBar{
     // ---------------------------------------
 
     // - Actions for Librarian----------------
-    // QAction* yourAcountActionTM = nullptr;
+    // QAction* yourAccountActionTM = nullptr;
     /* !!!!!!! Used as ReadersActionTM
        QAction* usersActionTM = nullptr;*/
     // QAction* booksActionTM = nullptr;
@@ -67,7 +67,7 @@ class Menu : public QMenuBar{
     // --------------------------------------
 
     // - Actions For Readers ----------------
-    // QAction* yourAcountActionTM = nullptr;
+    // QAction* yourAccountActionTM = nullptr;
     /* !!!!!!! Used as yourBooksActionTM
        QAction* booksActionTM = nullptr;*/
     QAction* libraryActionTM = nullptr;
@@ -187,7 +187,7 @@ class Menu : public QMenuBar{
     void registerActionAMTriggered();
     void quitActionAMTriggered();
 
-    void yourAcountActionTMTriggered();
+    void yourAccountActionTMTriggered();
     void usersActionTMTriggered();
     void booksActionTMTriggered();
     void logoutActionTMTriggered();

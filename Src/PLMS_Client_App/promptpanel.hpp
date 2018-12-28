@@ -65,6 +65,9 @@ public:
 
     void reload(bool);
 
+    // Event Filter
+    bool eventFilter(QObject* obj, QEvent* ev);
+
     // Add prompt with only string arguments (Standard Error, Standard Warning)
     void addPrompt(PromptType, QString);
     // Remove All Prompts with PromptType Type

@@ -2,8 +2,8 @@
 #include"promptelementexpandbutton.hpp"
 #include<QLabel>
 #include"promptlist.hpp"
-#include"windowmacros.hpp"
 #include"promptpanel.hpp"
+
 
 PromptElement::PromptElement(PromptList *parent, PromptType type)
     : QFrame(parent), parent(parent), type(type){
@@ -43,7 +43,7 @@ void PromptElement::createLayout(){
     expandButton->show();
     closeButton->setGeometry(PROMPT_ELEMENT_WIDTH - PROMPT_ELEMENT_BUTTON_WIDTH,0,PROMPT_ELEMENT_BUTTON_WIDTH,PROMPT_ELEMENT_BUTTON_HEIGHT);
     closeButton->setAlignment(Qt::AlignCenter);
-    closeButton->setPixmap(QPixmap(CLOSE_BUTTON_ICON));
+    closeButton->setPixmap(PROMPT_PANEL_CLOSE_BUTTON_PIXMAP);
     closeButton->show();
     errorTypeLabel->setScaledContents(true);
     errorTypeLabel->setGeometry(0,0,PROMPT_ELEMENT_ERROR_LABEL_WIDTH,PROMPT_ELEMENT_ERROR_LABEL_HEIGHT);

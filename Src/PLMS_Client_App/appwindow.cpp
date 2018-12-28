@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 AppWindow::AppWindow(App* parent)
-    : QWidget(), parent(parent), menu(this), toolBar(this)
+    : QWidget(), parent(parent), menu(this), toolBar(this), promptPanel(this), statusBar(this)
 {
     init();
     setWindow();
@@ -50,7 +50,9 @@ void AppWindow::createWidgets(){
 }
 
 void AppWindow::createLayout(){
-    // _PH_ To Implement
+    // Status Bar Start Layout
+    statusBar.setGeometry(STATUS_BAR_X, STATUS_BAR_Y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT);
+    statusBar.showMessage(STATUS_BAR_READY_TEXT);
 }
 
 void AppWindow::connectWidgets(){

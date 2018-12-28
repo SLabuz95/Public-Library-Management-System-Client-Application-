@@ -61,7 +61,7 @@ void Menu::reload(){
 }
 
 void Menu::clearMemory(){
-    SET_PTR_DO(yourAcountActionTM, nullptr);
+    SET_PTR_DO(yourAccountActionTM, nullptr);
     SET_PTR_DO(usersActionTM, nullptr);
     SET_PTR_DO(booksActionTM, nullptr);
     SET_PTR_DO(logoutActionTM, nullptr);
@@ -96,12 +96,12 @@ void Menu::connectActionsForToolsMenu(){
 }
 
 void Menu::deleteActionsForToolsMenu(){
-    removeAction(yourAcountActionTM);
+    removeAction(yourAccountActionTM);
     removeAction(usersActionTM);
     removeAction(booksActionTM);
     removeAction(logoutActionTM);
     removeAction(libraryActionTM);
-    disconnect(yourAcountActionTM, SIGNAL(triggered()), this, SLOT(yourAcountActionTMTriggered()));
+    disconnect(yourAccountActionTM, SIGNAL(triggered()), this, SLOT(yourAccountActionTMTriggered()));
     disconnect(usersActionTM, SIGNAL(triggered()), this, SLOT(usersActionTMTriggered()));
     disconnect(booksActionTM, SIGNAL(triggered()), this, SLOT(booksActionTMTriggered()));
     disconnect(logoutActionTM, SIGNAL(triggered()), this, SLOT(logoutActionTMTriggered()));
@@ -139,7 +139,7 @@ void Menu::quitActionAMTriggered(){
     parent->close();
 }
 
-void Menu::yourAcountActionTMTriggered(){
+void Menu::yourAccountActionTMTriggered(){
     // _PH_
 }
 
