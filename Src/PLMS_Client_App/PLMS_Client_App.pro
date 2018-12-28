@@ -9,10 +9,33 @@ HEADERS += \
     appwindowstatenum.hpp \
     windowmacros.hpp \
     menu.hpp \
-    mainmacros.hpp
+    mainmacros.hpp \
+    toolbar.hpp \
+    promptelement.hpp \
+    promptlist.hpp \
+    promptpanel.hpp \
+    promptpanelmaximizebutton.hpp \
+    promptpanelminimizebutton.hpp \
+    promptpanelstatusenum.hpp \
+    prompttypeenum.hpp \
+    promptelementexpandbutton.hpp \
+    dialogresultenum.hpp \
+    dialogtypeenum.hpp \
+    dialog.hpp
 
 SOURCES += \
     app.cpp \
     main.cpp \
     appwindow.cpp \
-    menu.cpp
+    menu.cpp \
+    toolbar.cpp \
+    promptelement.cpp \
+    promptlist.cpp \
+    promptpanel.cpp \
+    promptpanelmaximizebutton.cpp \
+    promptpanelminimizebutton.cpp \
+    promptelementexpandbutton.cpp \
+    dialog.cpp
+
+RESOURCES += \
+    icons.qrc

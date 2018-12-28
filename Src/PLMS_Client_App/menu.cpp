@@ -13,6 +13,7 @@ Menu::Menu(AppWindow* parent)
 }
 
 Menu::~Menu(){
+    disconnectActions();
     clearMemory();
 }
 
@@ -46,7 +47,7 @@ void Menu::connectMenu(){
 }
 
 void Menu::reload(){
-    switch(parent->getLastAppWindowStat()){
+    switch(parent->getCurrentAppWindowStat()){
         case APP_WINDOW_STAT_LOGGED_IN:
             createActionsForToolsMenu();
             connectActionsForToolsMenu();
@@ -60,7 +61,7 @@ void Menu::reload(){
 }
 
 void Menu::clearMemory(){
-    SET_PTR_DO(yourAcountActionTM, nullptr);
+    SET_PTR_DO(yourAccountActionTM, nullptr);
     SET_PTR_DO(usersActionTM, nullptr);
     SET_PTR_DO(booksActionTM, nullptr);
     SET_PTR_DO(logoutActionTM, nullptr);
@@ -81,18 +82,49 @@ void Menu::createActionsForToolsMenu(){
      */
 }
 
+void Menu::connectActionsForToolsMenu(){
+    /* _PH_ switch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
+        case ... :
+        // Add actions to Tools Menu -------------------
+
+        break;
+        default:
+
+        break;
+     }
+     */
+}
+
 void Menu::deleteActionsForToolsMenu(){
-    removeAction(yourAcountActionTM);
+    removeAction(yourAccountActionTM);
     removeAction(usersActionTM);
     removeAction(booksActionTM);
     removeAction(logoutActionTM);
     removeAction(libraryActionTM);
+    disconnect(yourAccountActionTM, SIGNAL(triggered()), this, SLOT(yourAccountActionTMTriggered()));
+    disconnect(usersActionTM, SIGNAL(triggered()), this, SLOT(usersActionTMTriggered()));
+    disconnect(booksActionTM, SIGNAL(triggered()), this, SLOT(booksActionTMTriggered()));
+    disconnect(logoutActionTM, SIGNAL(triggered()), this, SLOT(logoutActionTMTriggered()));
+    disconnect(libraryActionTM, SIGNAL(triggered()), this, SLOT(libraryActionTMTriggered()));
+    clearMemory();
+}
+
+void Menu::disconnectActions(){
     disconnect(&loginActionAM, SIGNAL(triggered()), this, SLOT(loginActionAMTriggered()));
     disconnect(&registerActionAM, SIGNAL(triggered()), this, SLOT(registerActionAMTriggered()));
     disconnect(&quitActionAM, SIGNAL(triggered()), this, SLOT(quitActionAMTriggered()));
+    /* _PH_ If app is in LOGGED_IN STATswitch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
+        case ... :
+        // Add actions to Tools Menu -------------------
+
+        break;
+        default:
+
+        break;
+     }
+     */
     disconnect(&appInfoActionHM, SIGNAL(triggered()), this, SLOT(appInfoActionHMTriggered()));
     disconnect(&helpActionHM, SIGNAL(triggered()), this, SLOT(helpActionHMTriggered()));
-    clearMemory();
 }
 
 void Menu::loginActionAMTriggered(){
@@ -107,7 +139,7 @@ void Menu::quitActionAMTriggered(){
     parent->close();
 }
 
-void Menu::yourAcountActionTMTriggered(){
+void Menu::yourAccountActionTMTriggered(){
     // _PH_
 }
 

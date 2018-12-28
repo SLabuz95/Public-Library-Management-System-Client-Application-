@@ -19,8 +19,7 @@
 class AppWindow;
 // ----------------------------------------------------------------------
 
-// ------------------ AppWindow Class ------------------------------------
-
+// ------------------ Menu Class ------------------------------------
 
 class Menu : public QMenuBar{
     Q_OBJECT
@@ -52,7 +51,7 @@ class Menu : public QMenuBar{
 
     // Actions for Tools Menu:
     // - Actions for Administrator ------------
-    QAction* yourAcountActionTM = nullptr;
+    QAction* yourAccountActionTM = nullptr;
     QAction* usersActionTM = nullptr;
     QAction* booksActionTM = nullptr;
     QAction* logoutActionTM = nullptr;
@@ -60,7 +59,7 @@ class Menu : public QMenuBar{
     // ---------------------------------------
 
     // - Actions for Librarian----------------
-    // QAction* yourAcountActionTM = nullptr;
+    // QAction* yourAccountActionTM = nullptr;
     /* !!!!!!! Used as ReadersActionTM
        QAction* usersActionTM = nullptr;*/
     // QAction* booksActionTM = nullptr;
@@ -68,11 +67,12 @@ class Menu : public QMenuBar{
     // --------------------------------------
 
     // - Actions For Readers ----------------
-    // QAction* yourAcountActionTM = nullptr;
+    // QAction* yourAccountActionTM = nullptr;
     /* !!!!!!! Used as yourBooksActionTM
        QAction* booksActionTM = nullptr;*/
     QAction* libraryActionTM = nullptr;
    // QAction* logoutActionAM = nullptr;
+    // ---------------------------------------
 
     // Actions for Help Menu
     QAction appInfoActionHM;
@@ -171,18 +171,7 @@ class Menu : public QMenuBar{
     }
 
     // Connect Actions For Tools Menu
-    inline void connectActionsForToolsMenu(){
-        /* _PH_ switch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
-            case ... :
-            // Add actions to Tools Menu -------------------
-
-            break;
-            default:
-
-            break;
-         }
-         */
-    }
+    void connectActionsForToolsMenu();
 
     // Connect Actions For Help Menu
     inline void connectActionsForHelpMenu(){
@@ -190,13 +179,15 @@ class Menu : public QMenuBar{
         connect(&helpActionHM, SIGNAL(triggered()), this, SLOT(helpActionHMTriggered()));
     }
 
+    void disconnectActions();
+
     public slots: // public slots +++
 
     void loginActionAMTriggered();
     void registerActionAMTriggered();
     void quitActionAMTriggered();
 
-    void yourAcountActionTMTriggered();
+    void yourAccountActionTMTriggered();
     void usersActionTMTriggered();
     void booksActionTMTriggered();
     void logoutActionTMTriggered();

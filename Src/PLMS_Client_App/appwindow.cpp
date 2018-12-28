@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 AppWindow::AppWindow(App* parent)
-    : QWidget(), parent(parent), menu(this)
+    : QWidget(), parent(parent), menu(this), toolBar(this), promptPanel(this), statusBar(this)
 {
     init();
     setWindow();
@@ -15,7 +15,7 @@ AppWindow::AppWindow(App* parent)
 }
 
 AppWindow::~AppWindow(){
-
+    clearMemory();
 }
 
 App* AppWindow::getParent(){
@@ -50,7 +50,9 @@ void AppWindow::createWidgets(){
 }
 
 void AppWindow::createLayout(){
-    // _PH_ To Implement
+    // Status Bar Start Layout
+    statusBar.setGeometry(STATUS_BAR_X, STATUS_BAR_Y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT);
+    statusBar.showMessage(STATUS_BAR_READY_TEXT);
 }
 
 void AppWindow::connectWidgets(){
@@ -61,3 +63,6 @@ void AppWindow::deleteWidgets(){
     // _PH_ To Implement (Delete only pointers (not element like parent))
 }
 
+void AppWindow::clearMemory(){
+    // _PH_ To Implement
+}
