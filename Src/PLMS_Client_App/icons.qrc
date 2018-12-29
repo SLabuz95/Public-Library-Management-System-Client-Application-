@@ -7,5 +7,7 @@
         <file>upExtendArrowIcon.png</file>
         <file>testIcon.png</file>
         <file>closeButtonIcon.png</file>
+        <file>leftExtendArrowIcon.png</file>
+        <file>rightExtendArrowIcon.png</file>
     </qresource>
 </RCC>

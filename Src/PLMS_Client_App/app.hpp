@@ -15,7 +15,7 @@
 // ----------------------------------------------------------------------
 
 // ------------------ Predefinitions ------------------------------------
-// _PH_ class User;
+class User;
 // ----------------------------------------------------------------------
 
 // ------------------ App Class -----------------------------------------
@@ -40,22 +40,35 @@ class App : public QApplication{
     // _PH_ Server server;
 
     // Logged User Virtual Class PTR
-    // _PH_ User* user;
+    User** users =  nullptr;
+    // + Number of logged users
+    uint numbOfUsers = 0;
+    // + Active Logged User
+    User* activeUser = nullptr;
 
     public: // public +++
     // Get Functions --------------------------------------
 
     AppWindow& getAppWindow();
     // _PH_ Server& getServer();
-    // _PH_ User* getUser();
-
+    User** getUsers();
+    uint getNumbOfUsers();
+    User* getActiveUser();
     // -----------------------------------------------------
     // Set Functions ---------------------------------------
-    // _PH_ void setUser(User* set);
+    void setActiveUser(User*);
     // -----------------------------------------------------
 
     // Check Bool Variables State
     bool isCloseApp();
+
+    // Add User
+    void addUser();
+    // _PH_ TEST
+    void addUser(QString);
+    // Remove User
+    void removeUser(User*);
+
 
     private: // private ++
 
@@ -69,6 +82,9 @@ class App : public QApplication{
 
     // Run All Timers
     void runTimers();
+
+    void clearMemory();
+
 };
 
 //-----------------------------------------------------------------------

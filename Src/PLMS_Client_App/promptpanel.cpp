@@ -79,6 +79,7 @@ switch(*status){
         promptSA->show();
         maximizeButton->move(0, 0);
         maximizeButton->show();
+        // Bez Breaka
     case PROMPT_PANEL_HIDDEN:
         minimizeButton->move(PROMPT_PANEL_MINIMIZE_BUTTON_X,PROMPT_PANEL_MINIMIZE_BUTTON_Y);
         minimizeButton->show();

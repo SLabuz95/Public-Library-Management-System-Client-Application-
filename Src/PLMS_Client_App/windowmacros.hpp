@@ -24,6 +24,18 @@
 #define STATUS_BAR_Y (APP_WINDOW_HEIGHT - STATUS_BAR_HEIGHT)
 // --------------------------------------------------------------------------------------------------------------------
 
+// Tab Bar (depends of AppWindow) -------------------------------------------------------------------------------------
+#define TABBAR_BUTTON_WIDTH (25)
+#define TABBAR_SIDEOFFSET (8)
+#define TABBAR_WIDTH (APP_WINDOW_WIDTH)
+#define TABBAR_ELEMENT_WIDTH_BEFORE_CREATING (QLabel(((*(parent->getParent()->getUsers() + i))->getUserName())).fontMetrics().horizontalAdvance((*(parent->getParent()->getUsers() + i))->getUserName()) + TABBAR_BUTTON_WIDTH + 2 * TABBAR_SIDEOFFSET)
+#define TABBAR_ELEMENT_WIDTH_FOR_CREATED (QLabel((*(userTabs + i))->getUserNameLabel()->text()).fontMetrics().horizontalAdvance((*(userTabs + i))->getUserNameLabel()->text()) + offset +  TABBAR_BUTTON_WIDTH + 2 * TABBAR_SIDEOFFSET)
+#define TABBAR_HEIGHT (25)
+#define TABBAR_BUTTONS_OFFSET (2)
+#define TABBAR_X (0)
+#define TABBAR_Y (MENU_BAR_HEIGHT + TOOL_BAR_HEIGHT)
+// -------------------------------------------------------------------------------------------------------------------
+
 // Prompt Panel (depends of AppWindow) ---------------------------------------------------------------------------------
 // Prompt Panel (depends of AppWindow)
 #define PROMPT_PANEL_WIDTH (APP_WINDOW_WIDTH)

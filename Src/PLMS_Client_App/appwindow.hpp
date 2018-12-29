@@ -15,6 +15,7 @@
 #include "toolbar.hpp"
 #include "promptpanel.hpp"
 #include <QStatusBar>
+#include "tabbar.hpp"
 
 // ----------------------------------------------------------------------
 
@@ -57,12 +58,16 @@ class AppWindow : public QWidget{
     // Status Bar
     QStatusBar statusBar;
 
+    // Users Bar
+    TabBar userBar;
+
     public: // public functions +++
     // Get Functions --------------------------------------
     App* getParent();
     AppWindowStat getLastAppWindowStat();
     AppWindowStat getCurrentAppWindowStat();
-
+    QStatusBar& getStatusBar();
+    TabBar& getUserBar();
     // -----------------------------------------------------
     // Set Functions ---------------------------------------
 

@@ -2,6 +2,9 @@
 #include"appwindow.hpp"
 #include<QEvent>
 #include<QProcess>
+// _PH_ Need For TEST OF USER TAB in LOGIN Action
+#include"app.hpp"
+
 
 ToolBar::ToolBar(AppWindow* parent)
     : QToolBar(parent), parent(parent)
@@ -109,7 +112,8 @@ void ToolBar::disconnectToolBar(){
 }
 
 void ToolBar::loginActionTriggered(){
-    // _PH_
+    // _PH_ TEST FOR ADDING USERS TABS
+    parent->getParent()->addUser(QString("Test ") + QString::number(parent->getParent()->getNumbOfUsers() + 1));
 }
 
 void ToolBar::registerActionTriggered(){

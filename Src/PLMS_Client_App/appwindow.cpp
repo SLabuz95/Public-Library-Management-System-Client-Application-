@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 AppWindow::AppWindow(App* parent)
-    : QWidget(), parent(parent), menu(this), toolBar(this), promptPanel(this), statusBar(this)
+    : QWidget(), parent(parent), menu(this), toolBar(this), promptPanel(this), statusBar(this), userBar(this)
 {
     init();
     setWindow();
@@ -28,6 +28,14 @@ AppWindowStat AppWindow::getLastAppWindowStat(){
 
 AppWindowStat AppWindow::getCurrentAppWindowStat(){
     return *appWindowStat;
+}
+
+QStatusBar& AppWindow::getStatusBar(){
+    return statusBar;
+}
+
+TabBar& AppWindow::getUserBar(){
+    return userBar;
 }
 
 void AppWindow::runTimers(){

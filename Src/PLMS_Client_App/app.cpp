@@ -2,6 +2,7 @@
 #include "app.hpp"
 #include <QTextCodec>
 #include<QProcess>
+#include"user.hpp"
 // --------------------------------------------------------------------------------
 
 App::App(int argc, char** argv)
@@ -31,19 +32,21 @@ Server& App::getServer(){
 }
 */
 
-// _PH_
-/*
-User* App::getUser(){
-    return user;
+User** App::getUsers(){
+    return users;
 }
-*/
 
-// _PH_
-/*
-void App::setUser(User *set){
-    SET_PTR_DO(user, set);
+uint App::getNumbOfUsers(){
+    return numbOfUsers;
 }
-*/
+
+User* App::getActiveUser(){
+    return activeUser;
+}
+
+void App::setActiveUser(User *set){
+    SET_PTR_NDO(activeUser, set);
+}
 
 bool App::isCloseApp(){
     return closeApp;
@@ -84,4 +87,51 @@ void App::show(){
 
 void App::runTimers(){
     appWindow.runTimers();
+}
+// _PH_ TEST
+void App::addUser(QString userName){
+    User** temp = new User*[numbOfUsers+1];
+    for(uint i = 0; i < numbOfUsers; i++)
+        *(temp + i) = *(users + i);
+    delete []users;
+    users = temp;
+    *(users + numbOfUsers++) = new User(userName);
+    appWindow.getUserBar().reload();
+}
+//
+
+void App::removeUser(User *removePTR){
+    for(uint i = 0; i < numbOfUsers; i++){
+        if((*(users + i)) == removePTR){
+            if(numbOfUsers > 1){
+                User** temp = new User*[numbOfUsers - 1];
+                for(uint j = 0; j < numbOfUsers; j++){
+                    if(j < i){
+                        *(temp + j) = *(users + j);
+                    }else{
+                        if(i == j){
+                            SET_PTR_DO((*(users + i)), nullptr);
+                        }else{
+                            *(temp + j - 1) = (*(users + j));
+                        }
+                    }
+                }
+                delete []users;
+                users = temp;
+            }else{
+                SET_PTR_DO(*users, nullptr);
+                delete []users;
+                SET_PTR_NDO(users, nullptr);
+            }
+            numbOfUsers--;
+        }
+    }
+}
+
+void App::clearMemory(){
+    for(uint i = 0; i < numbOfUsers; i++){
+        SET_PTR_DO((*(users + i)), nullptr);
+        delete []users;
+        SET_PTR_NDO(users, nullptr);
+    }
 }
