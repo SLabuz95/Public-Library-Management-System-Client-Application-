@@ -1,8 +1,0 @@
-#ifndef PROMPTTYPEENUM_HPP
-#define PROMPTTYPEENUM_HPP
-
-enum PromptType{
-    PROMPT_TYPE_DEFAULT
-};
-
-#endif // PROMPTTYPEENUM_HPP
