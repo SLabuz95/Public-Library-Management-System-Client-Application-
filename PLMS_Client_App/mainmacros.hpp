@@ -9,7 +9,7 @@
 
 // Memory Pointer Macros ------------------------------------------------------------------------------
 #define SET_PTR_DO(ptr, newPtr) {if(ptr) delete ptr; ptr = newPtr;}
-#define SET_PTR_NDO(ptr) {ptr = newPtr;}
+#define SET_PTR_NDO(ptr, newPtr) {ptr = newPtr;}
 // ---------------------------------------------------------------------------------------------
 
 // _PH_ TEST ICON FOR TESTING :P ---------------------------------------------------------
@@ -79,5 +79,11 @@
 // Status Bar Macros -------------------------------------------------------------------------------------------
 #define STATUS_BAR_READY_TEXT (QString("Gotowy"))
 // ------------------------------------------------------------------------------------------------------------
+
+// User Tab and Tab Bar Macros --------------------------------------------------------------------------------------------
+#define USER_TAB_CLOSE_BUTTON_ICON (QPixmap(QString(":/icons/closeButtonIcon.png")))
+#define TAB_BAR_LEFT_EXTEND_BUTTON_ICON (QPixmap(QString(":/icons/leftExtendArrowIcon.png")))
+#define TAB_BAR_RIGHT_EXTEND_BUTTON_ICON (QPixmap(QString(":/icons/rightExtendArrowIcon.png")))
+
 // -------------------------------------------------------------------------------------------------------------
 #endif // MAINMACROS_HPP
