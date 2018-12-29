@@ -262,27 +262,6 @@ void Dialog::thirdOptionLabelReleased(){
     done(THIRD_OPTION_RESULT);
 }
 
-QLabel* Dialog::getYesButton(){
-    return yesButton;
-}
-
-QLabel* Dialog::getNoButton(){
-    return noButton;
-}
-
-QLabel* Dialog::getFirstOptionLabel(){
-    return firstOptionLabel;
-}
-
-QLabel* Dialog::getSecondOptionLabel(){
-    return secondOptionLabel;
-}
-
-QLabel* Dialog::getThirdOptionLabel(){
-    return thirdOptionLabel;
-}
-
-
 DialogType Dialog::getType(){
     return type;
 }

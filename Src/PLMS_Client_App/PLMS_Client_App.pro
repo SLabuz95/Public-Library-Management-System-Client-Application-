@@ -21,7 +21,10 @@ HEADERS += \
     promptelementexpandbutton.hpp \
     dialogresultenum.hpp \
     dialogtypeenum.hpp \
-    dialog.hpp
+    dialog.hpp \
+    tabbar.hpp \
+    usertab.hpp \
+    user.hpp
 
 SOURCES += \
     app.cpp \
@@ -35,7 +38,10 @@ SOURCES += \
     promptpanelmaximizebutton.cpp \
     promptpanelminimizebutton.cpp \
     promptelementexpandbutton.cpp \
-    dialog.cpp
+    dialog.cpp \
+    tabbar.cpp \
+    usertab.cpp \
+    user.cpp
 
 RESOURCES += \
     icons.qrc

@@ -1,6 +1,7 @@
 #ifndef DIALOG_HPP
 #define DIALOG_HPP
 
+// ------------------ Macros --------------------------------------------
 #define YES_NO_BUTTON_WIDTH (90)
 #define BUTTONS_HEIGHT (25)
 #define HORIZONTAL_OFFSET (10)
@@ -9,23 +10,36 @@
 #define MIN_REFERENCE_WIDTH (250)
 #define MAX_TEST_RECT_HEIGHT (200)
 
+// Include macros
+#include "mainmacros.hpp"
+#include "windowmacros.hpp"
+
+// ----------------------------------------------------------------------
+
+// ------------------ Includes ------------------------------------------
 #include<QDialog>
 #include<QLabel>
 #include<QLineEdit>
 #include<QKeyEvent>
 #include"dialogtypeenum.hpp"
 #include"dialogresultenum.hpp"
+// ----------------------------------------------------------------------
 
+// ------------------ Predefinitions ------------------------------------
 class QScrollArea;
+// ----------------------------------------------------------------------
+
+// ------------------ Dialog Class ------------------------------------
+
 class Dialog : public QDialog{
     Q_OBJECT
 public:
-    // Konstruktor dla typu YES_NO_QUESTION
+    // Constuctor for types:  YES_NO_QUESTION
     Dialog(DialogType setType, QString title, QString content, QWidget* setParent);
-    // Konstruktor dla typu QUESTION
+    // Constuctor for types: QUESTION
     Dialog(DialogType setType, QString title, QString content, QString setFirstOption, QString setSecondOption, QString setThirdOption,QWidget* setParent);
 
-    // Destruktor
+    // Destructor
     ~Dialog();
 private:
     // Parent
@@ -34,8 +48,8 @@ private:
     // Type
     DialogType type;
 
-    // Elementy
-    // Dla typu QUESTION
+    // Elements
+    // For types: YES_NO_QUESTION, QUESTION
     QLabel* titleLabel = nullptr;
     QLabel* questionLabel = nullptr;
     QLabel* yesButton = nullptr;
@@ -44,12 +58,13 @@ private:
     QLabel* secondOptionLabel = nullptr;
     QLabel* thirdOptionLabel = nullptr;
 
+    // Dialog Answer
     DialogResult *exitCode = nullptr;
 
-    // Funkcje sterujące
+    // Control Functions
     void createDialog();
 public:
-    // Eventy
+    // Event Functions
     void acceptButtonReleased();
     void cancelButtonReleased();
     void yesButtonReleased();
@@ -59,14 +74,6 @@ public:
     void thirdOptionLabelReleased();
 
 public:
-    QLabel* getAcceptButton();
-    QLabel* getCancelButton();
-    QLabel* getYesButton();
-    QLabel* getNoButton();
-    QLabel* getFirstOptionLabel();
-    QLabel* getSecondOptionLabel();
-    QLabel* getThirdOptionLabel();
-
     DialogType getType();
     void setExitCode(DialogResult*);    
 
