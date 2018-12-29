@@ -12,4 +12,8 @@ Podstawowe założenia dotyczące tego projektu znajdują się w pliku:
 
 - "podstawoweZałożeniaAplikacjiKlienckiej.pdf".
 
+Projekt aplikacji typu serwer znajduje się pod adresem:
+
+https://github.com/dlakin95/Public-Library-Management-System-Server-Application/blob/master/README.md
+
 Wykonawcy: Sebastian Łabuz
