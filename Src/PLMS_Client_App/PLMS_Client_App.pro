@@ -1,4 +1,4 @@
-QT += core widgets
+QT += core widgets network
 TEMPLATE = app
 TARGET = "Aplikacja biblioteki publicznej"
 VERSION_PE_HEADER = 1.0
@@ -24,7 +24,9 @@ HEADERS += \
     dialog.hpp \
     tabbar.hpp \
     usertab.hpp \
-    user.hpp
+    user.hpp \
+    server.hpp \
+    messagetype.hpp
 
 SOURCES += \
     app.cpp \
@@ -41,7 +43,8 @@ SOURCES += \
     dialog.cpp \
     tabbar.cpp \
     usertab.cpp \
-    user.cpp
+    user.cpp \
+    server.cpp
 
 RESOURCES += \
     icons.qrc

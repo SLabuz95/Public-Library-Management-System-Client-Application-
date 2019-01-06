@@ -6,7 +6,7 @@
 // --------------------------------------------------------------------------------
 
 App::App(int argc, char** argv)
-    : QApplication(argc, argv), appWindow(this)/*, _PH_ server( _arguments_ )*/
+    : QApplication(argc, argv), appWindow(this), server( this )
 {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     if(!isOneInstanceOfProgram()){
@@ -25,12 +25,10 @@ AppWindow& App::getAppWindow(){
     return appWindow;
 }
 
-// _PH_
-/*
 Server& App::getServer(){
     return server;
 }
-*/
+
 
 User** App::getUsers(){
     return users;

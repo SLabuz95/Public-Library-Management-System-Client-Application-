@@ -10,7 +10,7 @@
 // ------------------ Includes ------------------------------------------
 #include<QApplication>
 #include "appwindow.hpp"
-// _PH_ #include "server.hpp"
+#include "server.hpp"
 
 // ----------------------------------------------------------------------
 
@@ -33,16 +33,18 @@ class App : public QApplication{
 
     private: // private ++
 
-    // Main App Window Object
-    AppWindow appWindow;
-
-    // Server Object
-    // _PH_ Server server;
-
     // Logged User Virtual Class PTR
     User** users =  nullptr;
     // + Number of logged users
     uint numbOfUsers = 0;
+
+    // Main App Window Object
+    AppWindow appWindow;
+
+    // Server Object
+    Server server;
+
+
     // + Active Logged User
     User* activeUser = nullptr;
 
@@ -50,7 +52,7 @@ class App : public QApplication{
     // Get Functions --------------------------------------
 
     AppWindow& getAppWindow();
-    // _PH_ Server& getServer();
+    Server& getServer();
     User** getUsers();
     uint getNumbOfUsers();
     User* getActiveUser();
