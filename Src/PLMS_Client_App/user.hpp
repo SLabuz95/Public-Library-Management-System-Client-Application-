@@ -26,7 +26,7 @@ public:
     ~User();
 
 private:
-    // User Data (InAccessible)
+    // User Data
     unsigned long userId = 0;   // if 0, unidentified
     // User Name
     QString userName;

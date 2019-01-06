@@ -4,8 +4,10 @@
 #include<QProcess>
 // _PH_ Need For TEST OF USER TAB in LOGIN Action
 #include"app.hpp"
-
-
+#include<QNetworkRequest>
+#include"messagetype.hpp"
+#include<QJsonDocument>
+#include<QJsonObject>
 ToolBar::ToolBar(AppWindow* parent)
     : QToolBar(parent), parent(parent)
 {
@@ -117,7 +119,15 @@ void ToolBar::loginActionTriggered(){
 }
 
 void ToolBar::registerActionTriggered(){
-    // _PH_
+    // _PH_ TEST FOR CONNECTING WITH SERVER
+    QJsonObject obj;
+    obj.insert("row", QJsonValue::fromVariant(2));
+    obj.insert("column", QJsonValue::fromVariant(3));
+    QJsonDocument jsonDoc(obj);
+    parent->getParent()->getServer().setLastRequest(new QNetworkRequest(), QString("discover"), POST, jsonDoc);
+    while(!parent->getParent()->getServer().isServerReplied());
+    /*parent->getParent()->getServer().setLastRequest(new QNetworkRequest(), QString("play"), GET, jsonDoc);
+    while(!parent->getParent()->getServer().isServerReplied());*/
 }
 
 void ToolBar::yourAccountActionTriggered(){
