@@ -4,8 +4,7 @@
 #include<QJsonDocument>
 Server::Server(App* parent){
     this->parent = parent;
-    QJsonDocument jsonDoc;
-    setLastRequest(new QNetworkRequest(), QString("clear"), GET, jsonDoc);
+    setLastRequest(QString("clear"), GET);
     while(!serverReplied);
 }
 
@@ -32,21 +31,54 @@ void Server::setLastReplay(QNetworkReply *set){
     lastReply = set;
 }
 
-bool Server::setLastRequest(QNetworkRequest *set, QString command, MessageType msgType, QJsonDocument &body){
+bool Server::setLastRequest(QString command, MessageType msgType){
     if(serverReplied){
         serverReplied = false;
         if(lastRequest)
             delete lastRequest;
-        lastRequest = set;
+        lastRequest = new QNetworkRequest();
+        lastRequest->setUrl(QUrl(URL + command));
+        switch(msgType){
+        case GET:
+            setLastReplay(get(*lastRequest));
+            break;
+        default:
+            serverReplied = true;
+            return true;
+        }
+        lastReply->waitForReadyRead(3000);
+
+        while(!lastReply->isFinished()){
+
+            qApp->processEvents();
+        }
+        qDebug() << lastReply->error();
+        qDebug() << lastReply->readAll();
+
+        serverReplied = true;
+
+        return true;
+    }
+
+    else
+        return false;
+}
+
+bool Server::setLastRequest(QString command, MessageType msgType, QJsonDocument &body){
+    if(serverReplied){
+        serverReplied = false;
+        if(lastRequest)
+            delete lastRequest;
+        lastRequest = new QNetworkRequest();
         lastRequest->setUrl(QUrl(URL + command));
         switch(msgType){
         case POST:
             lastRequest->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
             setLastReplay(post(*lastRequest, body.toJson()));
             break;
-        case GET:
-            setLastReplay(get(*lastRequest));
-            break;
+        default:
+            serverReplied = true;
+            return true;
         }
         lastReply->waitForReadyRead(3000);
 
