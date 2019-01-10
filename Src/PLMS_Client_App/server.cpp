@@ -52,8 +52,8 @@ bool Server::setLastRequest(QString command, MessageType msgType){
 
             qApp->processEvents();
         }
-        qDebug() << lastReply->error();
-        qDebug() << lastReply->readAll();
+        //qDebug() << lastReply->error();
+        //qDebug() << lastReply->readAll();
 
         serverReplied = true;
 
@@ -86,8 +86,8 @@ bool Server::setLastRequest(QString command, MessageType msgType, QJsonDocument 
 
             qApp->processEvents();
         }
-        qDebug() << lastReply->error();
-        qDebug() << lastReply->readAll();
+        //qDebug() << lastReply->error();
+        //qDebug() << lastReply->readAll();
 
         serverReplied = true;
 
