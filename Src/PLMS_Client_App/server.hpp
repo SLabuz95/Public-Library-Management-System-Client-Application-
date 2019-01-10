@@ -1,8 +1,10 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 #include<QtNetwork/QNetworkAccessManager>
-#include"messagetype.hpp"
+#include"../PLMS_Server_App/messagetype.hpp"
+
 #define URL QString("http://192.168.0.101:8080/")
+
 class App;
 class QNetworkReply;
 class QNetworkReply;
@@ -34,7 +36,8 @@ public:
 
     // Set
     void setLastReplay(QNetworkReply*);
-    bool setLastRequest(QNetworkRequest*, QString, MessageType, QJsonDocument&);
+    bool setLastRequest(QString, MessageType);
+    bool setLastRequest(QString, MessageType, QJsonDocument&);
 
 };
 

@@ -5,9 +5,11 @@
 // _PH_ Need For TEST OF USER TAB in LOGIN Action
 #include"app.hpp"
 #include<QNetworkRequest>
-#include"messagetype.hpp"
+#include"../PLMS_Server_App/messagetype.hpp"
 #include<QJsonDocument>
 #include<QJsonObject>
+#include"../PLMS_Server_App/user.hpp"
+#include"../PLMS_Server_App/commandtype.hpp"
 ToolBar::ToolBar(AppWindow* parent)
     : QToolBar(parent), parent(parent)
 {
@@ -119,12 +121,18 @@ void ToolBar::loginActionTriggered(){
 }
 
 void ToolBar::registerActionTriggered(){
-    // _PH_ TEST FOR CONNECTING WITH SERVER
+    // _PH_ TEST FOR ADDING USER BY REGISTER
+    QJsonObject objUser;
+    objUser.insert(USER_PARAMETERS_USER_ID, QString("0"));
+    objUser.insert(USER_PARAMETERS_USER_NAME, QString("admin2"));
+    objUser.insert(USER_PARAMETERS_USER_PASSWORD, QString("admin123"));
+    objUser.insert(USER_PARAMETERS_USER_PESEL, QString("9510050454"));
+    objUser.insert(USER_PARAMETERS_USER_FIRST_NAME, QString("Tomek"));
+    objUser.insert(USER_PARAMETERS_USER_SURNAME, QString("Tomkowski456"));
     QJsonObject obj;
-    obj.insert("row", QJsonValue::fromVariant(2));
-    obj.insert("column", QJsonValue::fromVariant(3));
+    obj.insert(USER_JSON_KEY_TEXT, objUser);
     QJsonDocument jsonDoc(obj);
-    parent->getParent()->getServer().setLastRequest(new QNetworkRequest(), QString("discover"), POST, jsonDoc);
+    parent->getParent()->getServer().setLastRequest(QString(COMMAND_TYPE_CLIENT_REGISTER_TEXT), POST, jsonDoc);
     while(!parent->getParent()->getServer().isServerReplied());
     /*parent->getParent()->getServer().setLastRequest(new QNetworkRequest(), QString("play"), GET, jsonDoc);
     while(!parent->getParent()->getServer().isServerReplied());*/

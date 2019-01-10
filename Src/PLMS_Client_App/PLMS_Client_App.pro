@@ -24,9 +24,15 @@ HEADERS += \
     dialog.hpp \
     tabbar.hpp \
     usertab.hpp \
-    user.hpp \
     server.hpp \
-    messagetype.hpp
+    ../PLMS_Server_App/bookparameters.hpp \
+    ../PLMS_Server_App/commandtype.hpp \
+    ../PLMS_Server_App/filetypeenum.hpp \
+    ../PLMS_Server_App/messagetype.hpp \
+    ../PLMS_Server_App/readfilerules.hpp \
+    ../PLMS_Server_App/returnerrortype.hpp \
+    ../PLMS_Server_App/user.hpp \
+    ../PLMS_Server_App/userparametersenum.hpp
 
 SOURCES += \
     app.cpp \
@@ -43,8 +49,8 @@ SOURCES += \
     dialog.cpp \
     tabbar.cpp \
     usertab.cpp \
-    user.cpp \
-    server.cpp
+    server.cpp \
+    ../PLMS_Server_App/user.cpp
 
 RESOURCES += \
     icons.qrc

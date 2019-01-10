@@ -2,7 +2,7 @@
 #include"tabbar.hpp"
 #include<QLabel>
 #include"windowmacros.hpp"
-#include"user.hpp"
+#include"../PLMS_Server_App/user.hpp"
 
 UserTab::UserTab(TabBar *setParent, User *setUser){
     parent = setParent;

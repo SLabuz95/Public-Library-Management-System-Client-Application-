@@ -2,7 +2,7 @@
 #include "app.hpp"
 #include <QTextCodec>
 #include<QProcess>
-#include"user.hpp"
+#include"../PLMS_Server_App/user.hpp"
 // --------------------------------------------------------------------------------
 
 App::App(int argc, char** argv)
@@ -93,8 +93,8 @@ void App::addUser(QString userName){
         *(temp + i) = *(users + i);
     delete []users;
     users = temp;
-    *(users + numbOfUsers++) = new User(userName);
-    appWindow.getUserBar().reload();
+    //*(users + numbOfUsers++) = new User(userName);
+    //appWindow.getUserBar().reload();
 }
 //
 
