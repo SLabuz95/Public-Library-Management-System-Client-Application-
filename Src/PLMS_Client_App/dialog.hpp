@@ -37,7 +37,7 @@ public:
     // Constuctor for types:  YES_NO_QUESTION
     Dialog(DialogType setType, QString title, QString content, QWidget* setParent);
     // Constuctor for types: QUESTION
-    Dialog(DialogType setType, QString title, QString content, QString setFirstOption, QString setSecondOption, QString setThirdOption,QWidget* setParent);
+    Dialog(DialogType setType, QString title, QString content, QWidget* setParent, QString setFirstOption, QString setSecondOption = QString(), QString setThirdOption = QString());
 
     // Destructor
     ~Dialog();

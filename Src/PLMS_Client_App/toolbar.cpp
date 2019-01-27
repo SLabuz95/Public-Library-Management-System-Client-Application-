@@ -10,6 +10,7 @@
 #include<QJsonObject>
 #include"../PLMS_Server_App/user.hpp"
 #include"../PLMS_Server_App/commandtype.hpp"
+#include"dialog.hpp"
 ToolBar::ToolBar(AppWindow* parent)
     : QToolBar(parent), parent(parent)
 {
@@ -159,5 +160,15 @@ void ToolBar::libraryActionTriggered(){
 }
 
 void ToolBar::helpActionTriggered(){
-    // _PH_
+    // _PH_ TEST
+    QString str("Test\n");
+    QString::iterator i = str.begin();
+    uint c = 0;
+    while(i != str.end()){
+        c++;
+        i++;
+    }
+    Dialog dlg(QUESTION_DIALOG, QString(), QString::number(c), nullptr, QString("Ok"));
+    dlg.exec();
+
 }

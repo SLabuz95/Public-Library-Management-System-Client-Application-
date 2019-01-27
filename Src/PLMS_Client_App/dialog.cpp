@@ -61,7 +61,7 @@ Dialog::Dialog(DialogType setType, QString title, QString content, QWidget* setP
     show();
 }
 
-Dialog::Dialog(DialogType setType, QString title, QString content, QString setFirstOption, QString setSecondOption, QString setThirdOption, QWidget *setParent){
+Dialog::Dialog(DialogType setType, QString title, QString content, QWidget *setParent, QString setFirstOption, QString setSecondOption, QString setThirdOption){
     parent = setParent;
     type = setType;
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);

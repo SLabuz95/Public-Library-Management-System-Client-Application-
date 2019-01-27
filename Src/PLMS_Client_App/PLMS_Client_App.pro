@@ -32,7 +32,9 @@ HEADERS += \
     ../PLMS_Server_App/readfilerules.hpp \
     ../PLMS_Server_App/returnerrortype.hpp \
     ../PLMS_Server_App/user.hpp \
-    ../PLMS_Server_App/userparametersenum.hpp
+    ../PLMS_Server_App/userparametersenum.hpp \
+    ../PLMS_Server_App/book.hpp \
+    ../PLMS_Server_App/bookcomment.hpp
 
 SOURCES += \
     app.cpp \
@@ -50,7 +52,8 @@ SOURCES += \
     tabbar.cpp \
     usertab.cpp \
     server.cpp \
-    ../PLMS_Server_App/user.cpp
+    ../PLMS_Server_App/user.cpp \
+    ../PLMS_Server_App/book.cpp
 
 RESOURCES += \
     icons.qrc
