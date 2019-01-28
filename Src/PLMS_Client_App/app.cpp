@@ -139,7 +139,10 @@ unsigned long long App::strLenForFile(QString &str){
     {
         textStr.device()->getChar(&tempChar);
         if(tempChar > 0){
-            counter++;
+            if(tempChar == '\n')
+                counter += 2;
+            else
+                counter++;
         }else{
         if(tempChar > -96){
             textStr.device()->getChar(&tempChar);
@@ -150,9 +153,7 @@ unsigned long long App::strLenForFile(QString &str){
                 for( ; i < 4; i++)
                 {
                     textStr.device()->getChar(&tempChar);
-
                 }
-
             }else{
                 if(tempChar > -120){
                     for( ; i < 5; i++){
@@ -162,7 +163,6 @@ unsigned long long App::strLenForFile(QString &str){
                     if(tempChar > -124){
                         for( ; i < 6; i++){
                             textStr.device()->getChar(&tempChar);
-
                         }
                     }else{
                         for( ; i < 7; i++){
@@ -170,7 +170,6 @@ unsigned long long App::strLenForFile(QString &str){
                          }
                     }
                 }
-
             }
         }
         counter += i;
