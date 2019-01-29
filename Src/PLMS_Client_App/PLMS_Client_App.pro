@@ -34,7 +34,12 @@ HEADERS += \
     ../PLMS_Server_App/user.hpp \
     ../PLMS_Server_App/userparametersenum.hpp \
     ../PLMS_Server_App/book.hpp \
-    ../PLMS_Server_App/bookcomment.hpp
+    ../PLMS_Server_App/bookcomment.hpp \
+    appwindowcentralpanel.hpp \
+    appwindowloginpanel.hpp \
+    emptyenum.hpp \
+    formatabledata.hpp \
+    formatabledatafield.hpp
 
 SOURCES += \
     app.cpp \
@@ -53,7 +58,10 @@ SOURCES += \
     usertab.cpp \
     server.cpp \
     ../PLMS_Server_App/user.cpp \
-    ../PLMS_Server_App/book.cpp
+    ../PLMS_Server_App/book.cpp \
+    appwindowcentralpanel.cpp \
+    formatabledata.cpp \
+    formatabledatafield.cpp
 
 RESOURCES += \
     icons.qrc

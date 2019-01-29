@@ -61,6 +61,8 @@ class AppWindow : public QWidget{
     // Users Bar
     TabBar userBar;
 
+    //
+
     public: // public functions +++
     // Get Functions --------------------------------------
     App* getParent();
