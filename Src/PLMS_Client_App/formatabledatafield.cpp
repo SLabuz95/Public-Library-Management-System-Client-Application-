@@ -78,7 +78,7 @@ void FormatableDataField<ParamName>::createChangeFormatButton(int offset){
     changeFormatButtonExist = true;
     changeFormatButton = new QLabel(this);
     changeFormatButton->setGeometry(offset, 0, 25, 25);
-    changeFormatButton->setPixmap(QPixmap(OPTIONS_PIXMAP));
+    //changeFormatButton->setPixmap(QPixmap(OPTIONS_PIXMAP));
     changeFormatButton->show();
 }
 
@@ -163,9 +163,3 @@ void FormatableDataField<ParamName>::switchDisplayForm(bool centerText){
     }
     editable = !editable;
 }
-
-
-template class FormatableDataField<ProjectMenagerParam>;
-template class FormatableDataField<PipeMaterialsFileParams>;
-template class FormatableDataField<FlangeMaterialsFileParams>;
-template class FormatableDataField<SubstancesParamsFileParam>;

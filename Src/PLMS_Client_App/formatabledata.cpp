@@ -1,7 +1,4 @@
 #include"formatabledata.hpp"
-#include"pipematerialsfileparams.hpp"
-#include"flangematerialsfileparams.hpp"
-#include"substancesparamsfileparamenum.hpp"
 #include<QDebug>
 #include<math.h>
 
@@ -145,84 +142,6 @@ bool FormatableData<ParamName>::checkStringFormat(QString str, bool negative){
 
 template <typename ParamName>
 bool FormatableData<ParamName>::setDefaultFormat(){
-    if(!format)
-        switch(param){
-        case NONE_PARAM:
-            format = new QString(DEF_FORM_NONE);
-            break;
-        case PROJECT_MENAGER_PRESSURE_TAP_DIAMETER:
-            format = new QString(DEF_FORM_PRESSURE_TAP_DIAMETER);
-            break;
-        case PROJECT_MENAGER_MAX_DIFF_PRESSURE:
-            format = new QString(DEF_FORM_MAX_DIFF_PRESSURE);
-            break;
-        case PROJECT_MENAGER_FLANGE_DIAMETER:
-            format = new QString(DEF_FORM_FLANGE_DIAMETER);
-            break;
-        case PROJECT_MENAGER_PIPE_DIAMETER:
-            format = new QString(DEF_FORM_PIPE_DIAMETER);
-            break;
-        case PROJECT_MENAGER_MAX_UPSTREAM_PRESSURE:
-            format = new QString(DEF_FORM_MAX_UPSTREAM_PRESSURE);
-            break;
-        case PROJECT_MENAGER_MAX_FLOW_VALUE:
-            format = new QString(DEF_FORM_MAX_FLOW_VALUE);
-            break;
-        case PROJECT_MENAGER_FLOW:
-            format = new QString(DEF_FORM_FLOW);
-            break;
-        case  PROJECT_MENAGER_TEMP:
-            format = new QString(DEF_FORM_TEMP);
-            break;
-        case PROJECT_MENAGER_WORK_DENSITY:
-            format = new QString(DEF_FORM_FLUID_DENSITY);
-            break;
-        case PROJECT_MENAGER_WORK_DYNAMIC_VISCOSITY:
-            format = new QString(DEF_FORM_DYNAMIC_VISCOSITY);
-            break;
-        case PROJECT_MENAGER_WORK_HEAT_CAPACITY_RATIO:
-            format = new QString(DEF_FORM_HEAT_CAPACITY_RATIO);
-            break;
-        case PROJECT_MENAGER_COMPRESIBILITY_FACTOR:
-            format = new QString(DEF_FORM_COMPRESIBILITY_FACTOR);
-            break;
-        case PROJECT_MENAGER_DENSITY_FROM_FILE:
-            format = new QString(DEF_FORM_FLUID_DENSITY_FROM_FILE);
-            break;
-        case PROJECT_MENAGER_VISCO_FROM_FILE:
-            format = new QString(DEF_FORM_DYNAMIC_VISCOSITY_FROM_FILE);
-            break;
-        case PROJECT_MENAGER_CHOKE_POINT:
-            format = new QString(DEF_FORM_CHOKE_POINT);
-            break;
-        case PROJECT_MENAGER_FLOW_FACTOR:
-            format = new QString(DEF_FORM_FLOW_FACTOR);
-            break;
-        case PROJECT_MENAGER_EXPANSTION_NUMBER:
-            format = new QString(DEF_FORM_EXPANSTION_NUMBER);
-            break;
-        case PROJECT_MENAGER_REYNOLDS_NUMBER:
-            format = new QString(DEF_FORM_REYNOLDS_NUMBER);
-            break;
-        case PROJECT_MENAGER_PRESSURE_LOSS:
-            format = new QString(DEF_FORM_PRESSURE_LOSE);
-            break;
-        case PROJECT_MENAGER_PIPE_LINEAR_EXPANSTION:
-            format = new QString(DEF_FORM_PIPE_LINEAR_EXPANSTION);
-            break;
-        case PROJECT_MENAGER_FLANGE_LINEAR_EXPANSTION:
-            format = new QString(DEF_FORM_FLANGE_LINEAR_EXPANSTION);
-            break;
-        case PROJECT_MENAGER_UPSTREAM_DEVICE_DISTANCE:
-            format = new QString(DEF_FORM_UPSTREAM_DEVICE_DISTANCE);
-            break;
-        case PROJECT_MENAGER_DOWNSTREAM_DISTANCE:
-            format = new QString(DEF_FORM_DOWNSTREAM_DISTANCE);
-            break;
-        default:
-            format = new QString(DEF_FORM_NONE);
-            break;
-        }
     return true;
 }
 
@@ -342,7 +261,4 @@ void FormatableData<ParamName>:: changePrecision(ushort precision){
     format = newFormat;
 }
 
-template class FormatableData<ProjectMenagerParam>;
-template class FormatableData<PipeMaterialsFileParams>;
-template class FormatableData<FlangeMaterialsFileParams>;
-template class FormatableData<SubstancesParamsFileParam>;
+

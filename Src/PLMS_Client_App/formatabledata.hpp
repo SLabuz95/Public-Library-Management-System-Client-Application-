@@ -1,7 +1,6 @@
 #ifndef FORMATABLEDATA_HPP
 #define FORMATABLEDATA_HPP
 #include<QString>
-#include"projectmenagerparamenum.hpp"
 #include"mainmacros.hpp"
 template <typename ParamName> class FormatableData{
 public:

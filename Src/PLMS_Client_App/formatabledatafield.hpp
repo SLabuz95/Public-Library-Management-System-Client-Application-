@@ -1,13 +1,7 @@
 #ifndef FORMATABLEDATAFIELD_HPP
 #define FORMATABLEDATAFIELD_HPP
 #include<QFrame>
-#include"pipematerialsfileparams.hpp"
-#include"flangematerialsfileparams.hpp"
-#include"substancesparamsfileparamenum.hpp"
-#include"projectmenagerparamenum.hpp"
 
-class ResultsAdditionDataPage;
-class ResultsBasicDataPage;
 class QLineEdit;
 class QLabel;
 template <typename ParamName> class FormatableData;
