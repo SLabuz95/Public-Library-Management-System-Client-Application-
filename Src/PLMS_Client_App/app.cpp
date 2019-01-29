@@ -18,7 +18,7 @@ App::App(int argc, char** argv)
 }
 
 App::~App(){
-    // _PH_ SET_PTR_DO(user, nullptr);
+   clearMemory();
 }
 
 AppWindow& App::getAppWindow(){
@@ -28,7 +28,6 @@ AppWindow& App::getAppWindow(){
 Server& App::getServer(){
     return server;
 }
-
 
 User** App::getUsers(){
     return users;
@@ -114,12 +113,10 @@ void App::removeUser(User *removePTR){
                         }
                     }
                 }
-                delete []users;
-                users = temp;
+                SET_PTR_DOA(users, temp);
             }else{
                 SET_PTR_DO(*users, nullptr);
-                delete []users;
-                SET_PTR_NDO(users, nullptr);
+                SET_PTR_DOA(users, nullptr);
             }
             numbOfUsers--;
         }
@@ -127,9 +124,57 @@ void App::removeUser(User *removePTR){
 }
 
 void App::clearMemory(){
-    for(uint i = 0; i < numbOfUsers; i++){
-        SET_PTR_DO((*(users + i)), nullptr);
-        delete []users;
-        SET_PTR_NDO(users, nullptr);
-    }
+    for(uint i = 0; i < numbOfUsers; i++)
+        SET_PTR_DO((*(users + i)), nullptr);       
+    SET_PTR_DOA(users, nullptr);
+}
+
+unsigned long long App::strLenForFile(QString &str){
+    unsigned long long counter = 0;
+    QByteArray data = str.toUtf8();
+    ushort i = 1;
+    char tempChar = '\0';
+    QTextStream textStr(data);
+    while(!textStr.atEnd())
+    {
+        textStr.device()->getChar(&tempChar);
+        if(tempChar > 0){
+            if(tempChar == '\n')
+                counter += 2;
+            else
+                counter++;
+        }else{
+        if(tempChar > -96){
+            textStr.device()->getChar(&tempChar);
+            i++;
+        }else{
+            if(tempChar > -112)
+            {
+                for( ; i < 4; i++)
+                {
+                    textStr.device()->getChar(&tempChar);
+                }
+            }else{
+                if(tempChar > -120){
+                    for( ; i < 5; i++){
+                        textStr.device()->getChar(&tempChar);
+                     }
+                }else{
+                    if(tempChar > -124){
+                        for( ; i < 6; i++){
+                            textStr.device()->getChar(&tempChar);
+                        }
+                    }else{
+                        for( ; i < 7; i++){
+                            textStr.device()->getChar(&tempChar);
+                         }
+                    }
+                }
+            }
+        }
+        counter += i;
+        i = 1;
+   }
+ }
+    return counter;
 }

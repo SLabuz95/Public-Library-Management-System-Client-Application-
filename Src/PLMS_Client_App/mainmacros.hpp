@@ -9,6 +9,7 @@
 
 // Memory Pointer Macros ------------------------------------------------------------------------------
 #define SET_PTR_DO(ptr, newPtr) {if(ptr) delete ptr; ptr = newPtr;}
+#define SET_PTR_DOA(ptrA, newPtrA) {if(ptrA) delete []ptrA; ptrA = newPtrA;}
 #define SET_PTR_NDO(ptr, newPtr) {ptr = newPtr;}
 // ---------------------------------------------------------------------------------------------
 

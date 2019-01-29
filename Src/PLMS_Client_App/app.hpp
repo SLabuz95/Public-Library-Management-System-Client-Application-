@@ -87,6 +87,8 @@ class App : public QApplication{
 
     void clearMemory();
 
+   static unsigned long long strLenForFile(QString&);
+
 };
 
 //-----------------------------------------------------------------------
