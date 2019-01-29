@@ -18,7 +18,7 @@ App::App(int argc, char** argv)
 }
 
 App::~App(){
-    clearMemory();
+   clearMemory();
 }
 
 AppWindow& App::getAppWindow(){
