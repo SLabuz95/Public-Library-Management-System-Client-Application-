@@ -85,6 +85,18 @@
 #define USER_TAB_CLOSE_BUTTON_ICON (QPixmap(QString(":/icons/closeButtonIcon.png")))
 #define TAB_BAR_LEFT_EXTEND_BUTTON_ICON (QPixmap(QString(":/icons/leftExtendArrowIcon.png")))
 #define TAB_BAR_RIGHT_EXTEND_BUTTON_ICON (QPixmap(QString(":/icons/rightExtendArrowIcon.png")))
+// ----------------------------------------------------------------------------------------
+
+// App Window Central Panel -----------------------------------------------------------------------------------------------
+// App Window Login Panel --------------------------
+#define APP_WINDOW_LOGIN_PANEL_LOGIN_TITLE_TEXT (QString("Panel logowania"))
+#define APP_WINDOW_LOGIN_PANEL_LOGIN_NAME_TEXT (QString("Nazwa użytkownika:"))
+#define APP_WINDOW_LOGIN_PANEL_LOGIN_PASSWORD_TEXT (QString("Hasło:"))
+#define APP_WINDOW_LOGIN_PANEL_LOGIN_PASSWORD_HIDDEN_TEXT (QString("Ukryj hasło"))
+#define APP_WINDOW_LOGIN_PANEL_LOGIN_BUTTON_TEXT (QString("Zaloguj"))
+#define APP_WINDOW_LOGIN_PANEL_REGISTER_BUTTON_TEXT (QString("Utwórz konto"))
+// -----------------------------------------------------------------------------------------------------------------------
+
 
 // -------------------------------------------------------------------------------------------------------------
 #endif // MAINMACROS_HPP

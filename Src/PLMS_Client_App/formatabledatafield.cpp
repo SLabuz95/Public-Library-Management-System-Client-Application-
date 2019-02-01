@@ -4,6 +4,7 @@
 #include<QLineEdit>
 #include"formatabledata.hpp"
 #include"formatabledatafield.hpp"
+#include"emptyenum.hpp"
 
 
 template <typename ParamName>
@@ -163,3 +164,15 @@ void FormatableDataField<ParamName>::switchDisplayForm(bool centerText){
     }
     editable = !editable;
 }
+
+template<typename ParamName>
+void FormatableDataField<ParamName>::installEventFilter(QObject* evFilter){
+    if(editable)
+        data.textEdit->installEventFilter(evFilter);
+    else {
+        data.label->installEventFilter(evFilter);
+    }
+}
+
+// Instances
+template class FormatableDataField<Empty>;

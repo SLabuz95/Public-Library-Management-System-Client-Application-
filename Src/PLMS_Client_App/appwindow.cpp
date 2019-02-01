@@ -1,5 +1,7 @@
 // ------------------ Includes ------------------------------------------
 #include "appwindow.hpp"
+#include"appwindowcentralpanel.hpp"
+#include"appwindowloginpanel.hpp"
 #include "app.hpp" // Predefined in AppWindow Header
 
 // ----------------------------------------------------------------------
@@ -38,6 +40,10 @@ TabBar& AppWindow::getUserBar(){
     return userBar;
 }
 
+PromptPanel& AppWindow::getPromptPanel(){
+    return promptPanel;
+}
+
 void AppWindow::runTimers(){
     // _PH_ To Implement
 }
@@ -55,12 +61,26 @@ void AppWindow::setWindow(){
 
 void AppWindow::createWidgets(){
     // _PH_ To Implement
+    switch (getCurrentAppWindowStat()) {
+    case APP_WINDOW_STAT_LOGIN:
+        if(appWindowCentralPanel)
+            SET_PTR_DO(appWindowCentralPanel, nullptr);
+        SET_PTR_NDO(appWindowCentralPanel, new AppWindowLoginPanel(this));
+        break;
+    case APP_WINDOW_STAT_REGISTER:
+        break;
+    case APP_WINDOW_STAT_LOGGED_IN:
+        break;
+    }
 }
 
 void AppWindow::createLayout(){
     // Status Bar Start Layout
     statusBar.setGeometry(STATUS_BAR_X, STATUS_BAR_Y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT);
     statusBar.showMessage(STATUS_BAR_READY_TEXT);
+
+    // App Window Central Panel Layout
+    appWindowCentralPanel->setGeometry(APP_WINDOW_CENTRAL_PANEL_X, APP_WINDOW_CENTRAL_PANEL_Y, APP_WINDOW_CENTRAL_PANEL_WIDTH, APP_WINDOW_CENTRAL_PANEL_HEIGHT);
 }
 
 void AppWindow::connectWidgets(){
@@ -68,9 +88,17 @@ void AppWindow::connectWidgets(){
 }
 
 void AppWindow::deleteWidgets(){
-    // _PH_ To Implement (Delete only pointers (not element like parent))
+    // _PH_ (Delete only pointers (not element like parent))
+    SET_PTR_DO(appWindowCentralPanel, nullptr);
 }
 
 void AppWindow::clearMemory(){
     // _PH_ To Implement
+}
+
+void AppWindow::reload(){
+    deleteWidgets();
+    createWidgets();
+    createLayout();
+    connectWidgets();
 }

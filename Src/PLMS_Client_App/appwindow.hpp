@@ -21,6 +21,7 @@
 
 // ------------------ Predefinitions ------------------------------------
 class App;
+class AppWindowCentralPanel;
 // ----------------------------------------------------------------------
 
 // ------------------ AppWindow Class ------------------------------------
@@ -61,6 +62,9 @@ class AppWindow : public QWidget{
     // Users Bar
     TabBar userBar;
 
+    // App Window
+    AppWindowCentralPanel *appWindowCentralPanel = nullptr;
+
     public: // public functions +++
     // Get Functions --------------------------------------
     App* getParent();
@@ -68,6 +72,8 @@ class AppWindow : public QWidget{
     AppWindowStat getCurrentAppWindowStat();
     QStatusBar& getStatusBar();
     TabBar& getUserBar();
+    PromptPanel& getPromptPanel();
+    AppWindowCentralPanel* getAppWindowCentralPanel();
     // -----------------------------------------------------
     // Set Functions ---------------------------------------
 
@@ -98,6 +104,9 @@ class AppWindow : public QWidget{
 
     // Clear Memory
     void clearMemory();
+
+    // Reload
+    void reload();
 
 };
 

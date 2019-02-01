@@ -38,14 +38,17 @@ private:
     void connectAll();
     void disconnectAll();
 
+    void loginButtonPressed();
+    void registerButtonPressed();
+    void passwordHiddenCBPressed();
+    bool loginNameFieldKeyPressed();
+    bool loginPasswordKeyPressed();
 protected:
     // Funkcja przeładowania elementu
     void reload();
 
     bool eventMatching(QObject*, QEvent*);
-    void loginButtonPressed();
-    void registerButtonPressed();
-    void passwordHiddenCBPressed();
+
 
 };
 

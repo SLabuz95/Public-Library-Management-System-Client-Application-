@@ -45,5 +45,8 @@ public:
     // Funkcja zmiany elementu QTextEdit / QLabel
     void switchDisplayForm(bool);
 
+    // Funkcja ustawiania Event Filtera
+    void installEventFilter(QObject*);
+
 };
 #endif // FORMATABLEDATAFIELD_HPP

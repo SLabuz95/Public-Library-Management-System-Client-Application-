@@ -1,5 +1,6 @@
 #include"appwindowcentralpanel.hpp"
 #include"appwindow.hpp"
+#include"promptpanel.hpp"
 
 AppWindowCentralPanel::AppWindowCentralPanel(AppWindow *parent)
     : QFrame(parent), parent(parent){
@@ -21,7 +22,7 @@ void AppWindowCentralPanel::init(){
 }
 
 void AppWindowCentralPanel::setWindow(){
-    // Empty
+    resize(APP_WINDOW_CENTRAL_PANEL_WIDTH, APP_WINDOW_CENTRAL_PANEL_HEIGHT - parent->getPromptPanel().height());
 }
 
 void AppWindowCentralPanel::createWidgets(){
