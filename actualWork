@@ -1,5 +1,5 @@
 Wpisać "imie": to nad czym pracujecie, by uniknąć kolizji.
 
-Sebastian: Wprowadenie okna głównego trójstanowego (stan logowania) (Stosowana klasa wirtualna / polimorfizm)
+Sebastian: Dodanie autoryzacji paska zalogownych + wstępne postawienie serwera i repozytorium z instrukcją
 
 Kamil: 1.1.1, 3 stany okna głownego

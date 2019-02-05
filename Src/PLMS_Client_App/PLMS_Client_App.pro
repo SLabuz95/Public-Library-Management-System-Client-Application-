@@ -32,7 +32,6 @@ HEADERS += \
     ../PLMS_Server_App/readfilerules.hpp \
     ../PLMS_Server_App/returnerrortype.hpp \
     ../PLMS_Server_App/user.hpp \
-
     ../PLMS_Server_App/userparametersenum.hpp \
     ../PLMS_Server_App/book.hpp \
     ../PLMS_Server_App/bookcomment.hpp \
@@ -63,7 +62,6 @@ SOURCES += \
     appwindowcentralpanel.cpp \
     formatabledata.cpp \
     formatabledatafield.cpp
-
 
 RESOURCES += \
     icons.qrc

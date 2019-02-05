@@ -11,7 +11,6 @@
 #include"../PLMS_Server_App/user.hpp"
 #include"../PLMS_Server_App/commandtype.hpp"
 #include"dialog.hpp"
-
 ToolBar::ToolBar(AppWindow* parent)
     : QToolBar(parent), parent(parent)
 {
