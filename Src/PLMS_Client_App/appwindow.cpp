@@ -2,6 +2,10 @@
 #include "appwindow.hpp"
 #include"appwindowcentralpanel.hpp"
 #include"appwindowloginpanel.hpp"
+#include"appwindowregisterpanel.hpp"
+#include"appwindowloggedinpanel.hpp"
+#include"../PLMS_Server_App/user.hpp"
+#include<QJsonObject>
 #include "app.hpp" // Predefined in AppWindow Header
 
 // ----------------------------------------------------------------------
@@ -32,6 +36,20 @@ AppWindowStat AppWindow::getCurrentAppWindowStat(){
     return *appWindowStat;
 }
 
+void AppWindow::setAppWindowStat(AppWindowStat aws){
+    if(aws == *appWindowStat && aws == APP_WINDOW_STAT_LOGGED_IN){
+        createWidgets();
+        createLayout();
+    }
+    if(aws != *appWindowStat){
+        WINDOW_STATUS_SAVE(appWindowStat);
+        *appWindowStat = aws;
+        appWindowStatChanged = true;
+        if(aws != APP_WINDOW_STAT_LOGGED_IN)
+            parent->setActiveUser(nullptr);
+    }
+}
+
 QStatusBar& AppWindow::getStatusBar(){
     return statusBar;
 }
@@ -45,7 +63,7 @@ PromptPanel& AppWindow::getPromptPanel(){
 }
 
 void AppWindow::runTimers(){
-    // _PH_ To Implement
+    // Empty
 }
 
 void AppWindow::init(){
@@ -54,51 +72,79 @@ void AppWindow::init(){
 }
 
 void AppWindow::setWindow(){
-    setMinimumSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
-    setMaximumSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
+    setMinimumSize(APP_WINDOW_DEFAULT_WIDTH, APP_WINDOW_DEFAULT_HEIGHT);
+    setMaximumSize(APP_WINDOW_DEFAULT_WIDTH, APP_WINDOW_DEFAULT_HEIGHT);
+    resize(APP_WINDOW_DEFAULT_WIDTH, APP_WINDOW_DEFAULT_HEIGHT);
     setStyleSheet("AppWindow{background: qlineargradient(x1:0, y1:1, x2:1, y2:0, stop:0 rgba(235, 235,235, 255),stop: 0.63 rgba(200, 200, 200, 255), stop: 1 rgba(210,210,210,255)); border-radius: 10px;}");
+
 }
 
 void AppWindow::createWidgets(){
-    // _PH_ To Implement
+    SET_PTR_DO(appWindowCentralPanel, nullptr);
     switch (getCurrentAppWindowStat()) {
-    case APP_WINDOW_STAT_LOGIN:
-        if(appWindowCentralPanel)
-            SET_PTR_DO(appWindowCentralPanel, nullptr);
+    case APP_WINDOW_STAT_LOGIN:        
         SET_PTR_NDO(appWindowCentralPanel, new AppWindowLoginPanel(this));
         break;
     case APP_WINDOW_STAT_REGISTER:
+        SET_PTR_NDO(appWindowCentralPanel, new AppWindowRegisterPanel(this));
         break;
     case APP_WINDOW_STAT_LOGGED_IN:
+        SET_PTR_NDO(appWindowCentralPanel, new AppWindowLoggedInPanel(this, parent->getActiveUser()));
         break;
     }
+    appWindowCentralPanel->show();
 }
 
 void AppWindow::createLayout(){
+    // Menu
+    menu.setGeometry(MENU_BAR_X, MENU_BAR_Y, MENU_BAR_WIDTH, MENU_BAR_HEIGHT);
+
+    //ToolBar
+    toolBar.setGeometry(TOOL_BAR_X, TOOL_BAR_Y, TOOL_BAR_WIDTH, TOOL_BAR_HEIGHT);
+
+    // TabBar
+    userBar.setGeometry(TABBAR_X, TABBAR_Y, TABBAR_WIDTH, TABBAR_HEIGHT);
+
     // Status Bar Start Layout
     statusBar.setGeometry(STATUS_BAR_X, STATUS_BAR_Y, STATUS_BAR_WIDTH, STATUS_BAR_HEIGHT);
     statusBar.showMessage(STATUS_BAR_READY_TEXT);
 
     // App Window Central Panel Layout
     appWindowCentralPanel->setGeometry(APP_WINDOW_CENTRAL_PANEL_X, APP_WINDOW_CENTRAL_PANEL_Y, APP_WINDOW_CENTRAL_PANEL_WIDTH, APP_WINDOW_CENTRAL_PANEL_HEIGHT);
+
+    appWindowCentralPanel->lower();
 }
 
 void AppWindow::connectWidgets(){
-    // _PH_ To Implement
+    // Empty
 }
 
 void AppWindow::deleteWidgets(){
-    // _PH_ (Delete only pointers (not element like parent))
     SET_PTR_DO(appWindowCentralPanel, nullptr);
 }
 
 void AppWindow::clearMemory(){
-    // _PH_ To Implement
+    // Empty
 }
 
 void AppWindow::reload(){
     deleteWidgets();
     createWidgets();
     createLayout();
-    connectWidgets();
+    connectWidgets();    
+    if(getLastAppWindowStat() == APP_WINDOW_STAT_LOGGED_IN || getCurrentAppWindowStat() == APP_WINDOW_STAT_LOGGED_IN)
+    {
+        if(getLastAppWindowStat() == APP_WINDOW_STAT_LOGGED_IN)
+            parent->setActiveUser(nullptr);
+        userBar.reload();
+    }
+    appWindowStatChanged = false;
+}
+
+bool AppWindow::isAppWindowStatChanged(){
+    return appWindowStatChanged;
+}
+
+AppWindowLoggedInPanel* AppWindow::getAppWindowLoggedInPanel(){
+    return static_cast<AppWindowLoggedInPanel*>(appWindowCentralPanel);
 }

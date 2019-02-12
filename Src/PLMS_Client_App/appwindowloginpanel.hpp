@@ -24,7 +24,6 @@ private:
     QLabel loginPasswordLabel;
     FormatableDataField<Empty> loginPasswordField;
     QCheckBox passwordHiddenCB;
-    QString password;
     // Actions Buttons
     QLabel loginButton;
     QLabel registerButton;
@@ -41,14 +40,13 @@ private:
     void loginButtonPressed();
     void registerButtonPressed();
     void passwordHiddenCBPressed();
-    bool loginNameFieldKeyPressed();
-    bool loginPasswordKeyPressed();
+    bool loginNameFieldKeyPressed(QKeyEvent* ev);
+    bool loginPasswordKeyPressed(QKeyEvent* ev);
 protected:
     // Funkcja przeładowania elementu
     void reload();
 
     bool eventMatching(QObject*, QEvent*);
-
 
 };
 

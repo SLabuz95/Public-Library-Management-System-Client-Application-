@@ -2,7 +2,8 @@
 #define APP_HPP
 
 // ------------------ Macros --------------------------------------------
-
+#define MAIN_APP_TIMER_INTERVAL (10)
+#define SEND_ACTIVITY_PTR (989)
 // Include macros
 
 // ----------------------------------------------------------------------
@@ -11,6 +12,7 @@
 #include<QApplication>
 #include "appwindow.hpp"
 #include "server.hpp"
+#include<QTimer>
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +37,9 @@ class App : public QApplication{
 
     // Logged User Virtual Class PTR
     User** users =  nullptr;
+    // + Active Logged User
+    User* activeUser = nullptr;
+
     // + Number of logged users
     uint numbOfUsers = 0;
 
@@ -44,9 +49,10 @@ class App : public QApplication{
     // Server Object
     Server server;
 
+    // Main App Timer
+    QTimer mainAppTimer;
 
-    // + Active Logged User
-    User* activeUser = nullptr;
+    uint sendActivityPtr = 0;
 
     public: // public +++
     // Get Functions --------------------------------------
@@ -61,17 +67,17 @@ class App : public QApplication{
     void setActiveUser(User*);
     // -----------------------------------------------------
 
+    // Event Filter
+    bool eventFilter(QObject* obj, QEvent* ev);
+
     // Check Bool Variables State
     bool isCloseApp();
 
-    // Add User
-    void addUser();
-    // _PH_ TEST
-    void addUser(QString);
+    void addUser(User*);
     // Remove User
     void removeUser(User*);
 
-
+    void logoutUser(User**, uint);
     private: // private ++
 
     // Is other instance of program is running?
@@ -89,6 +95,10 @@ class App : public QApplication{
 
     static unsigned long long strLenForFile(QString&);
 
+    // Timer Function
+    void timerFunction();
+
+    void sendActivityUpdate();
 };
 
 //-----------------------------------------------------------------------

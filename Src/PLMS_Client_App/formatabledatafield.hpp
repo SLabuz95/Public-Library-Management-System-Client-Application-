@@ -47,6 +47,7 @@ public:
 
     // Funkcja ustawiania Event Filtera
     void installEventFilter(QObject*);
+    void setGeometry(int x, int y, int width, int height);
 
 };
 #endif // FORMATABLEDATAFIELD_HPP

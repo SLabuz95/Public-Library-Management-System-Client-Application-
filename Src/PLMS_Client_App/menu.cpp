@@ -1,7 +1,10 @@
 #include"menu.hpp"
 #include"appwindow.hpp"
+#include"app.hpp"
+#include"../PLMS_Server_App/user.hpp"
 #include<QEvent>
 #include<QProcess>
+#include"dialog.hpp"
 
 Menu::Menu(AppWindow* parent)
     : QMenuBar(parent), parent(parent)
@@ -30,139 +33,50 @@ void Menu::init(){
 }
 
 void Menu::setWindow(){
-    setFixedHeight(MENU_BAR_HEIGHT);
+    // Empty
 }
 
 void Menu::createMenu(){
     createApplicationMenu();
-    createToolsMenu();
-    toolsMenu.setDisabled(true);
     createHelpMenu();
 }
 
 void Menu::connectMenu(){
     connectActionsForApplicationMenu();
-    connectActionsForToolsMenu();
     connectActionsForHelpMenu();
 }
 
-void Menu::reload(){
-    switch(parent->getCurrentAppWindowStat()){
-        case APP_WINDOW_STAT_LOGGED_IN:
-            createActionsForToolsMenu();
-            connectActionsForToolsMenu();
-            toolsMenu.setEnabled(true);
-            break;
-        default:    // APP_WINDOW_STAT_REGISER + APP_WINDOW_STAT_LOGIN
-            toolsMenu.setDisabled(true);
-            deleteActionsForToolsMenu();
-            break;
-    }
-}
-
 void Menu::clearMemory(){
-    SET_PTR_DO(yourAccountActionTM, nullptr);
-    SET_PTR_DO(usersActionTM, nullptr);
-    SET_PTR_DO(booksActionTM, nullptr);
-    SET_PTR_DO(logoutActionTM, nullptr);
-    SET_PTR_DO(libraryActionTM, nullptr);
+
 }
 
-void Menu::createActionsForToolsMenu(){
-    // Prepare Actions -----------------------------------
-    /* _PH_ switch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
-        case ... :
-        // Add actions to Tools Menu -------------------
-
-        break;
-        default:
-
-        break;
-     }
-     */
-}
-
-void Menu::connectActionsForToolsMenu(){
-    /* _PH_ switch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
-        case ... :
-        // Add actions to Tools Menu -------------------
-
-        break;
-        default:
-
-        break;
-     }
-     */
-}
-
-void Menu::deleteActionsForToolsMenu(){
-    removeAction(yourAccountActionTM);
-    removeAction(usersActionTM);
-    removeAction(booksActionTM);
-    removeAction(logoutActionTM);
-    removeAction(libraryActionTM);
-    disconnect(yourAccountActionTM, SIGNAL(triggered()), this, SLOT(yourAccountActionTMTriggered()));
-    disconnect(usersActionTM, SIGNAL(triggered()), this, SLOT(usersActionTMTriggered()));
-    disconnect(booksActionTM, SIGNAL(triggered()), this, SLOT(booksActionTMTriggered()));
-    disconnect(logoutActionTM, SIGNAL(triggered()), this, SLOT(logoutActionTMTriggered()));
-    disconnect(libraryActionTM, SIGNAL(triggered()), this, SLOT(libraryActionTMTriggered()));
-    clearMemory();
-}
 
 void Menu::disconnectActions(){
     disconnect(&loginActionAM, SIGNAL(triggered()), this, SLOT(loginActionAMTriggered()));
     disconnect(&registerActionAM, SIGNAL(triggered()), this, SLOT(registerActionAMTriggered()));
     disconnect(&quitActionAM, SIGNAL(triggered()), this, SLOT(quitActionAMTriggered()));
-    /* _PH_ If app is in LOGGED_IN STATswitch( parent->( get Actual Window Stat Object ) -> (Get Actual Panel Stat) ){
-        case ... :
-        // Add actions to Tools Menu -------------------
-
-        break;
-        default:
-
-        break;
-     }
-     */
     disconnect(&appInfoActionHM, SIGNAL(triggered()), this, SLOT(appInfoActionHMTriggered()));
-    disconnect(&helpActionHM, SIGNAL(triggered()), this, SLOT(helpActionHMTriggered()));
+    disconnect(&authorsActionHM, SIGNAL(triggered()), this, SLOT(authorsActionHMTriggered()));
 }
 
-void Menu::loginActionAMTriggered(){
-    // _PH_
+void Menu::loginActionAMTriggered(){    
+    parent->setAppWindowStat(APP_WINDOW_STAT_LOGIN);
 }
 
 void Menu::registerActionAMTriggered(){
-    // _PH_
+    parent->setAppWindowStat(APP_WINDOW_STAT_REGISTER);
 }
 
 void Menu::quitActionAMTriggered(){
     parent->close();
 }
 
-void Menu::yourAccountActionTMTriggered(){
-    // _PH_
-}
-
-void Menu::usersActionTMTriggered(){
-    // _PH_
-}
-
-void Menu::booksActionTMTriggered(){
-    // _PH_
-}
-
-void Menu::logoutActionTMTriggered(){
-    // _PH_
-}
-
-void Menu::libraryActionTMTriggered(){
-    // _PH_
-}
-
 void Menu::appInfoActionHMTriggered(){
-    // _PH_
+    Dialog dlg(QUESTION_DIALOG, QString("Informacje o programie"), QString("Program napisany w ramach zajęć projektowych \"Inżynieria oprogramowania II\" w Państwowej Wyższej Szkole Zawodowej w Tarnowie."), nullptr, QString("Zamknij"));
+    dlg.exec();
 }
 
-void Menu::helpActionHMTriggered(){
-    // _PH_
+void Menu::authorsActionHMTriggered(){
+    Dialog dlg(QUESTION_DIALOG, QString("Autorzy"), QString("Sebastian Łabuz\nKamil Grygiel\nŁukasz Smoleń"), nullptr, QString("Zamknij"));
+    dlg.exec();
 }
