@@ -4,6 +4,7 @@
 #include<QLineEdit>
 #include"formatabledata.hpp"
 #include"formatabledatafield.hpp"
+#include"emptyenum.hpp"
 
 
 template <typename ParamName>
@@ -93,6 +94,7 @@ void FormatableDataField<ParamName>::deleteChangeFormatButton(){
 
 template <typename ParamName>
 void FormatableDataField<ParamName>::rewriteData(bool useCorrectionFactor){
+    Q_UNUSED(useCorrectionFactor);
     if(formatableData){
         if(editable)
             data.textEdit->setText(formatableData->useStringFormat());
@@ -130,11 +132,17 @@ void FormatableDataField<ParamName>::setFormatValidity(bool set){
 
 template <typename ParamName>
 void FormatableDataField<ParamName>::createLabelElement(bool centerText){
-    data.label = new QLabel(this);
+    QLabel* temp = new QLabel(this);
+    temp->setGeometry(geometry());
     if(formatableData){
-        data.label->setText(formatableData->useStringFormat() + postfix);
+        temp->setText(formatableData->useStringFormat() + postfix);
         formatValidity = true;
+    }else{
+        if(data.textEdit)
+        temp->setText(data.textEdit->text());
     }
+    SET_PTR_DO(data.textEdit, nullptr);
+    SET_PTR_NDO(data.label, temp);
     if(centerText)
         data.label->setAlignment(Qt::AlignCenter);
     data.label->show();
@@ -142,11 +150,17 @@ void FormatableDataField<ParamName>::createLabelElement(bool centerText){
 
 template <typename ParamName>
 void FormatableDataField<ParamName>::createTextEditElement(bool centerText){
-        data.textEdit = new QLineEdit(this);
+    QLineEdit* temp = new QLineEdit(this);
+    temp->setGeometry(geometry());
         if(formatableData){
-            data.textEdit->setText(formatableData->useStringFormat());
+            temp->setText(formatableData->useStringFormat());
             formatValidity = true;
+        }else{
+            if(data.label)
+            temp->setText(data.label->text());
         }
+        SET_PTR_DO(data.label, nullptr);
+        SET_PTR_NDO(data.textEdit, temp);
         if(centerText)
             data.textEdit->setAlignment(Qt::AlignCenter);
         data.textEdit->show();
@@ -155,11 +169,31 @@ void FormatableDataField<ParamName>::createTextEditElement(bool centerText){
 template <typename ParamName>
 void FormatableDataField<ParamName>::switchDisplayForm(bool centerText){
     if(editable){
-        delete data.textEdit;
         createLabelElement(centerText);
     }else{
-        delete data.label;
         createTextEditElement(centerText);
     }
     editable = !editable;
 }
+
+template<typename ParamName>
+void FormatableDataField<ParamName>::installEventFilter(QObject* evFilter){
+    if(editable)
+        data.textEdit->installEventFilter(evFilter);
+    else {
+        data.label->installEventFilter(evFilter);
+    }
+}
+
+template<typename ParamName>
+void FormatableDataField<ParamName>::setGeometry(int x, int y, int width, int height){
+    if(editable)
+        data.textEdit->setGeometry(0, 0, width, height);
+    else {
+        data.label->setGeometry(0, 0, width, height);
+    }
+    QFrame::setGeometry(x, y, width, height);
+}
+
+// Instances
+template class FormatableDataField<Empty>;

@@ -20,7 +20,7 @@ class AppWindow;
 // ------------------ PromptElement Class ------------------------------------
 
 class AppWindowCentralPanel : public QFrame{
-
+    Q_OBJECT
 public:
     // Constructor
     AppWindowCentralPanel(AppWindow*);
@@ -40,8 +40,6 @@ protected:
     void connectAll();
     void disconnectAll();
 
-    virtual void expand(){}
-    virtual void minimize(){}
 
 public:
     // Get Functions
@@ -51,6 +49,7 @@ public:
     // Set Functions
 
     // -----------------
+    bool eventFilter(QObject* obj, QEvent* ev);
 
     virtual void reload(){}
     virtual bool eventMatching(QObject*, QEvent*){return true;}

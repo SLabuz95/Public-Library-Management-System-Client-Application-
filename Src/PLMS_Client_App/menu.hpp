@@ -38,10 +38,8 @@ class Menu : public QMenuBar{
     // AppWindow Class As Parent (parent)
     AppWindow* parent = nullptr;
 
-
     // Menus
     QMenu applicationMenu;
-    QMenu toolsMenu;
     QMenu helpMenu;
 
     // Actions for Application Menu
@@ -49,34 +47,9 @@ class Menu : public QMenuBar{
     QAction registerActionAM;
     QAction quitActionAM;
 
-    // Actions for Tools Menu:
-    // - Actions for Administrator ------------
-    QAction* yourAccountActionTM = nullptr;
-    QAction* usersActionTM = nullptr;
-    QAction* booksActionTM = nullptr;
-    QAction* logoutActionTM = nullptr;
-
-    // ---------------------------------------
-
-    // - Actions for Librarian----------------
-    // QAction* yourAccountActionTM = nullptr;
-    /* !!!!!!! Used as ReadersActionTM
-       QAction* usersActionTM = nullptr;*/
-    // QAction* booksActionTM = nullptr;
-    //QAction* logoutActionAM = nullptr;
-    // --------------------------------------
-
-    // - Actions For Readers ----------------
-    // QAction* yourAccountActionTM = nullptr;
-    /* !!!!!!! Used as yourBooksActionTM
-       QAction* booksActionTM = nullptr;*/
-    QAction* libraryActionTM = nullptr;
-   // QAction* logoutActionAM = nullptr;
-    // ---------------------------------------
-
     // Actions for Help Menu
     QAction appInfoActionHM;
-    QAction helpActionHM;
+    QAction authorsActionHM;
 
     public: // public functions +++
     // Get Functions --------------------------------------
@@ -107,8 +80,6 @@ class Menu : public QMenuBar{
     // Clear Memory
     void clearMemory();
 
-    // Reload Function
-    void reload();
 
     // Create Application Menu
     inline void createApplicationMenu(){
@@ -116,14 +87,7 @@ class Menu : public QMenuBar{
         createActionForApplicationMenu();
         addMenu(&applicationMenu);
     }
-    // Create Tools Menu
-    inline void createToolsMenu(){
-        toolsMenu.setTitle(TOOLS_MENU_TEXT);
-        createActionsForToolsMenu();
-        addMenu(&toolsMenu);
-    }
-
-    // Create Help Menu
+     // Create Help Menu
     inline void createHelpMenu(){
         helpMenu.setTitle(HELP_MENU_TEXT);
         createActionsForHelpMenu();
@@ -146,21 +110,15 @@ class Menu : public QMenuBar{
         applicationMenu.addAction(&quitActionAM);
     }
 
-    // Create Actions For Tools Menu
-    void createActionsForToolsMenu();
-
-    // Delete Actions For Tools Menu
-    void deleteActionsForToolsMenu();
-
-    // Create Actions For Help Menu
+   // Create Actions For Help Menu
     inline void createActionsForHelpMenu(){
         // Prepare Actions -----------------------------------
         appInfoActionHM.setText(HELP_MENU_APP_INFO_ACTION_TEXT);
-        helpActionHM.setText(HELP_MENU_HELP_ACTION_TEXT);
+        authorsActionHM.setText(HELP_MENU_AUTHORS_ACTION_TEXT);
 
         // Add actions to Help Menu ------------------------
         helpMenu.addAction(&appInfoActionHM);
-        helpMenu.addAction(&helpActionHM);
+        helpMenu.addAction(&authorsActionHM);
     }
 
     // Connect Actions For ApplicationMenu
@@ -170,14 +128,11 @@ class Menu : public QMenuBar{
         connect(&quitActionAM, SIGNAL(triggered()), this, SLOT(quitActionAMTriggered()));
     }
 
-    // Connect Actions For Tools Menu
-    void connectActionsForToolsMenu();
-
     // Connect Actions For Help Menu
     inline void connectActionsForHelpMenu(){
         connect(&appInfoActionHM, SIGNAL(triggered()), this, SLOT(appInfoActionHMTriggered()));
-        connect(&helpActionHM, SIGNAL(triggered()), this, SLOT(helpActionHMTriggered()));
-    }
+        connect(&authorsActionHM, SIGNAL(triggered()), this, SLOT(authorsActionHMTriggered()));
+ }
 
     void disconnectActions();
 
@@ -187,14 +142,8 @@ class Menu : public QMenuBar{
     void registerActionAMTriggered();
     void quitActionAMTriggered();
 
-    void yourAccountActionTMTriggered();
-    void usersActionTMTriggered();
-    void booksActionTMTriggered();
-    void logoutActionTMTriggered();
-    void libraryActionTMTriggered();
-
     void appInfoActionHMTriggered();
-    void helpActionHMTriggered();
+    void authorsActionHMTriggered();
 
 };
 

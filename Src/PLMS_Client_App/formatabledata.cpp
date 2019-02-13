@@ -1,6 +1,7 @@
 #include"formatabledata.hpp"
 #include<QDebug>
 #include<math.h>
+#include"emptyenum.hpp"
 
 template <typename ParamName>
 FormatableData<ParamName>::FormatableData(double data, ParamName param){
@@ -261,4 +262,5 @@ void FormatableData<ParamName>:: changePrecision(ushort precision){
     format = newFormat;
 }
 
-
+// Instances
+template class FormatableData<Empty>;

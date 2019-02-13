@@ -21,6 +21,9 @@
 
 // ------------------ Predefinitions ------------------------------------
 class App;
+class AppWindowCentralPanel;
+class AppWindowLoggedInPanel;
+
 // ----------------------------------------------------------------------
 
 // ------------------ AppWindow Class ------------------------------------
@@ -45,6 +48,8 @@ class AppWindow : public QWidget{
 
     // Window Stat
     AppWindowStat appWindowStat[2] = {APP_WINDOW_STAT_LOGIN, APP_WINDOW_STAT_LOGIN};
+    // Window Status Change Flag
+    bool appWindowStatChanged = false;
 
     // Menu
     Menu menu;
@@ -61,7 +66,9 @@ class AppWindow : public QWidget{
     // Users Bar
     TabBar userBar;
 
-    //
+
+    // App Window
+    AppWindowCentralPanel *appWindowCentralPanel = nullptr;
 
     public: // public functions +++
     // Get Functions --------------------------------------
@@ -70,13 +77,21 @@ class AppWindow : public QWidget{
     AppWindowStat getCurrentAppWindowStat();
     QStatusBar& getStatusBar();
     TabBar& getUserBar();
+    PromptPanel& getPromptPanel();
+    AppWindowCentralPanel* getAppWindowCentralPanel();
+    bool isAppWindowStatChanged();
+    AppWindowLoggedInPanel* getAppWindowLoggedInPanel();
     // -----------------------------------------------------
     // Set Functions ---------------------------------------
+    void setAppWindowStat(AppWindowStat aws);
 
     // -----------------------------------------------------
 
     // Run All Timers
     void runTimers();
+
+    // Reload
+    void reload();
 
     private: // private functions ++
 

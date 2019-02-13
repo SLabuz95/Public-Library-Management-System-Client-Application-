@@ -1,14 +1,16 @@
 #include"appwindowcentralpanel.hpp"
 #include"appwindow.hpp"
+#include"promptpanel.hpp"
 
 AppWindowCentralPanel::AppWindowCentralPanel(AppWindow *parent)
-    : QFrame(parent), parent(parent){
+    : QFrame(parent), parent(parent)
+{
     init();
     setWindow();
     createWidgets();
     createLayout();
     connectAll();
-    setStyleSheet("QWidget{background-color: rgba(245, 245, 245, 0.4);}");
+    setStyleSheet("AppWindowCentralPanel{background: transparent;}");
 }
 
 AppWindowCentralPanel::~AppWindowCentralPanel(){
@@ -21,7 +23,7 @@ void AppWindowCentralPanel::init(){
 }
 
 void AppWindowCentralPanel::setWindow(){
-    // Empty
+
 }
 
 void AppWindowCentralPanel::createWidgets(){
@@ -48,3 +50,6 @@ AppWindow* AppWindowCentralPanel::getParent(){
     return parent;
 }
 
+bool AppWindowCentralPanel::eventFilter(QObject *obj, QEvent *ev){
+    return eventMatching(obj, ev);
+}

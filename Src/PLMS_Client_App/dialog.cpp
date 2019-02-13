@@ -2,7 +2,14 @@
 #include<QTimer>
 #include"appwindow.hpp"
 
-/* _PH_ Uncomment If need to make custom dialog with this constructor
+#include"changepasswordpanel.hpp"
+#include"bookpanel.hpp"
+#include"addcommentpanel.hpp"
+#include"checkpasswordpanel.hpp"
+#include"../PLMS_Server_App/user.hpp"
+
+/* Uncomment If need to make custom dialog with this constructor
+
   Dialog::Dialog(DialogType setType, QWidget *setParent){
     parent = setParent;
     type = setType;
@@ -194,6 +201,49 @@ Dialog::Dialog(DialogType setType, QString title, QString content, QWidget *setP
         }            
 }
 
+
+Dialog::Dialog(DialogType setType, User* user, QWidget* setParent){
+    parent = setParent;
+    type = setType;
+    setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setStyleSheet("Dialog{border: 2px ridge grey;}");
+    setWindowModality(Qt::ApplicationModal);
+    switch(type){
+    case CHANGE_PASSWORD:
+        dialogPanel.changePasswordPanel = new ChangePasswordPanel(this, user);
+        dialogPanel.changePasswordPanel->setGeometry(DIALOG_CHANGE_PASSWORD_PANEL_X, DIALOG_CHANGE_PASSWORD_PANEL_Y, DIALOG_CHANGE_PASSWORD_PANEL_WIDTH, DIALOG_CHANGE_PASSWORD_PANEL_HEIGHT);
+    break;
+    case BOOK_PANEL:
+        dialogPanel.bookPanel = new BookPanel(this, user);
+        dialogPanel.bookPanel->setGeometry(DIALOG_BOOK_PANEL_X, DIALOG_BOOK_PANEL_Y, DIALOG_BOOK_PANEL_WIDTH, DIALOG_BOOK_PANEL_HEIGHT);
+        break;
+    case CHECK_PASSWORD:
+        dialogPanel.checkPasswordPanel = new CheckPasswordPanel(this, user);
+        dialogPanel.checkPasswordPanel->setGeometry(DIALOG_CHECK_PASSWORD_PANEL_X, DIALOG_CHECK_PASSWORD_PANEL_Y, DIALOG_CHECK_PASSWORD_PANEL_WIDTH, DIALOG_CHECK_PASSWORD_PANEL_HEIGHT);
+        break;
+    default:
+        break;
+    }
+        show();
+}
+
+Dialog::Dialog(DialogType setType, Book* book, unsigned long long userId, QWidget* setParent){
+    parent = setParent;
+    type = setType;
+    setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+    setStyleSheet("Dialog{border: 2px ridge grey;}");
+    setWindowModality(Qt::ApplicationModal);
+    switch(type){
+    case ADD_COMMENT:
+        dialogPanel.addCommentPanel = new AddCommentPanel(this, book, userId);
+        dialogPanel.addCommentPanel->setGeometry(DIALOG_ADD_COMMENT_PANEL_X,DIALOG_ADD_COMMENT_PANEL_Y,DIALOG_ADD_COMMENT_PANEL_WIDTH,DIALOG_ADD_COMMENT_PANEL_HEIGHT);
+        break;
+    default:
+        break;
+    }
+        show();
+}
+
 Dialog::~Dialog(){
     switch(type){
     case QUESTION_DIALOG:
@@ -209,9 +259,19 @@ Dialog::~Dialog(){
         delete yesButton;
         delete noButton;
         break;
-    default:
+    case CHANGE_PASSWORD:
+        SET_PTR_DO(dialogPanel.changePasswordPanel, nullptr);
         break;
-    }    
+    case BOOK_PANEL:
+        SET_PTR_DO(dialogPanel.bookPanel, nullptr);
+        break;
+    case ADD_COMMENT:
+        SET_PTR_DO(dialogPanel.addCommentPanel, nullptr);
+        break;
+    case CHECK_PASSWORD:
+        SET_PTR_DO(dialogPanel.checkPasswordPanel, nullptr);
+        break;
+    }
 }
 
 void Dialog::createDialog(){
@@ -239,6 +299,8 @@ void Dialog::createDialog(){
         noButton =  new QLabel("Nie", this);
         noButton->show();
     break;
+   default:
+        break;
     }
 }
 
@@ -275,6 +337,22 @@ void Dialog::setExitCode(DialogResult* dlgExitCode){
 bool Dialog::eventFilter(QObject* obj, QEvent* ev){
     switch(ev->type()){
     case QEvent::KeyPress:
+    switch(type){
+        case ADD_COMMENT:
+            if(dialogPanel.addCommentPanel && dialogPanel.addCommentPanel->eventMatching(obj, ev))
+             return true;
+            break;
+        case CHECK_PASSWORD:
+            if(dialogPanel.checkPasswordPanel && dialogPanel.checkPasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case CHANGE_PASSWORD:
+            if(dialogPanel.changePasswordPanel && dialogPanel.changePasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        default:
+            break;
+        }
        break;
     case QEvent::MouseButtonRelease:
         switch(type){
@@ -302,12 +380,79 @@ bool Dialog::eventFilter(QObject* obj, QEvent* ev){
                 return true;
             }
         break;
+        case CHANGE_PASSWORD:
+            if(dialogPanel.changePasswordPanel && dialogPanel.changePasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;        
+        case BOOK_PANEL:
+            if(dialogPanel.bookPanel && dialogPanel.bookPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case ADD_COMMENT:
+            if(dialogPanel.addCommentPanel && dialogPanel.addCommentPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case CHECK_PASSWORD:
+            if(dialogPanel.checkPasswordPanel && dialogPanel.checkPasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        }
+        break;
+    case QEvent::Enter:
+    {
+        switch(type){
+        case CHANGE_PASSWORD:
+            if(dialogPanel.changePasswordPanel && dialogPanel.changePasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case BOOK_PANEL:
+            if(dialogPanel.bookPanel && dialogPanel.bookPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case ADD_COMMENT:
+            if(dialogPanel.addCommentPanel && dialogPanel.addCommentPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case CHECK_PASSWORD:
+            if(dialogPanel.checkPasswordPanel && dialogPanel.checkPasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
         default:
             break;
         }
+    }
+        break;
+    case QEvent::Leave:
+    {
+        switch(type){
+        case CHANGE_PASSWORD:
+            if(dialogPanel.changePasswordPanel && dialogPanel.changePasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case BOOK_PANEL:
+            if(dialogPanel.bookPanel && dialogPanel.bookPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case ADD_COMMENT:
+            if(dialogPanel.addCommentPanel && dialogPanel.addCommentPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        case CHECK_PASSWORD:
+            if(dialogPanel.checkPasswordPanel && dialogPanel.checkPasswordPanel->eventMatching(obj, ev))
+                return true;
+            break;
+        default:
+            break;
+        }
+    }
         break;
     default:
         break;
     }
     return QObject::eventFilter(obj, ev);
 }
+
+QWidget* Dialog::getParent(){
+    return parent;
+}
+
