@@ -7,6 +7,7 @@
 #include<QJsonDocument>
 #include<QJsonObject>
 #include"appwindowloggedinpanel.hpp"
+
 #include"../PLMS_Server_App/user.hpp"
 // --------------------------------------------------------------------------------
 
@@ -18,8 +19,10 @@ App::App(int argc, char** argv)
         closeApp = true;
         return;
     }
+
     mainAppTimer.setInterval(MAIN_APP_TIMER_INTERVAL);
     mainAppTimer.installEventFilter(this);
+
     show();
     runTimers();
 }
@@ -51,6 +54,7 @@ User* App::getActiveUser(){
 void App::setActiveUser(User *set){
     SET_PTR_NDO(activeUser, set);
 }
+
 
 bool App::eventFilter(QObject *obj, QEvent *ev){
     switch(ev->type()){
@@ -109,6 +113,7 @@ void App::runTimers(){
 }
 
 void App::addUser(User* user){
+
     User** temp = new User*[numbOfUsers+1];
     for(uint i = 0; i < numbOfUsers; i++)
         *(temp + i) = *(users + i);
@@ -118,6 +123,7 @@ void App::addUser(User* user){
     numbOfUsers++;
     appWindow.getUserBar().reload();
 }
+
 
 void App::removeUser(User *removePTR){
     for(uint i = 0; i < numbOfUsers; i++){
@@ -150,6 +156,7 @@ void App::clearMemory(){
     for(uint i = 0; i < numbOfUsers; i++){
         SET_PTR_DO((*(users + i)), nullptr);
     }
+
     SET_PTR_DOA(users, nullptr);
 }
 
@@ -340,3 +347,4 @@ void App::sendActivityUpdate(){
        }
     }
 }
+

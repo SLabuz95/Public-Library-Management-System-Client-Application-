@@ -1,6 +1,7 @@
 #include"dialog.hpp"
 #include<QTimer>
 #include"appwindow.hpp"
+
 #include"changepasswordpanel.hpp"
 #include"bookpanel.hpp"
 #include"addcommentpanel.hpp"
@@ -8,6 +9,7 @@
 #include"../PLMS_Server_App/user.hpp"
 
 /* Uncomment If need to make custom dialog with this constructor
+
   Dialog::Dialog(DialogType setType, QWidget *setParent){
     parent = setParent;
     type = setType;
@@ -199,6 +201,7 @@ Dialog::Dialog(DialogType setType, QString title, QString content, QWidget *setP
         }            
 }
 
+
 Dialog::Dialog(DialogType setType, User* user, QWidget* setParent){
     parent = setParent;
     type = setType;
@@ -296,7 +299,7 @@ void Dialog::createDialog(){
         noButton =  new QLabel("Nie", this);
         noButton->show();
     break;
-    default:
+   default:
         break;
     }
 }
@@ -334,7 +337,7 @@ void Dialog::setExitCode(DialogResult* dlgExitCode){
 bool Dialog::eventFilter(QObject* obj, QEvent* ev){
     switch(ev->type()){
     case QEvent::KeyPress:
-        switch(type){
+    switch(type){
         case ADD_COMMENT:
             if(dialogPanel.addCommentPanel && dialogPanel.addCommentPanel->eventMatching(obj, ev))
              return true;
@@ -452,3 +455,4 @@ bool Dialog::eventFilter(QObject* obj, QEvent* ev){
 QWidget* Dialog::getParent(){
     return parent;
 }
+

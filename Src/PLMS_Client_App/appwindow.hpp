@@ -23,6 +23,7 @@
 class App;
 class AppWindowCentralPanel;
 class AppWindowLoggedInPanel;
+
 // ----------------------------------------------------------------------
 
 // ------------------ AppWindow Class ------------------------------------
@@ -65,6 +66,7 @@ class AppWindow : public QWidget{
     // Users Bar
     TabBar userBar;
 
+
     // App Window
     AppWindowCentralPanel *appWindowCentralPanel = nullptr;
 
@@ -82,6 +84,7 @@ class AppWindow : public QWidget{
     // -----------------------------------------------------
     // Set Functions ---------------------------------------
     void setAppWindowStat(AppWindowStat aws);
+
     // -----------------------------------------------------
 
     // Run All Timers

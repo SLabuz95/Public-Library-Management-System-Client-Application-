@@ -144,5 +144,6 @@ SOURCES += \
     checkpasswordpanel.cpp \
     operationlistelementbookpanelusersbooks.cpp
 
+
 RESOURCES += \
     icons.qrc
