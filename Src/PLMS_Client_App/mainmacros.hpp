@@ -34,8 +34,8 @@
 // -------------------------------------------------------------------------------------------------------------
 
 // Icon Files for Tool Bar-----------------------------------------------------------------------------------------------------
-#define TOOL_BAR_LOGIN_ACTION_ICON QIcon(QString(":/icons/helpIcon.png"))
-#define TOOL_BAR_REGISTER_ACTION_ICON QIcon(QString(":/icons/helpIcon.png"))
+#define TOOL_BAR_LOGIN_ACTION_ICON QIcon(QString(":/icons/CP_button.png"))
+#define TOOL_BAR_REGISTER_ACTION_ICON QIcon(QString(":/icons/addIcon.png"))
 #define TOOL_BAR_HELP_ACTION_ICON QIcon(QString(":/icons/helpIcon.png"))
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -159,7 +159,7 @@
 #define TEXT_GENERATOR_ELEMENT_MY_BOOKS (QString("Indeks: ") + book->getParam(BOOK_ID) + QString("\nTytuł: ") + book->getParam(BOOK_TITLE) + QString("\nWydawca: ") + book->getParam(BOOK_PUBLISHER) + QString("\nWydanie: ") + book->getParam(BOOK_EDITION) + bookType + additionalText)
 #define TEXT_GENERATOR_ELEMENT_LIBRARY (QString("Indeks: ") + book->getParam(BOOK_ID) + QString("\nTytuł: ") + book->getParam(BOOK_TITLE) + QString("\nWydawca: ") + book->getParam(BOOK_PUBLISHER) + QString("\nWydanie: ") + book->getParam(BOOK_EDITION)+ bookType + additionalText)
 #define TEXT_GENERATOR_ELEMENT_BOOKS (QString("Indeks: ") + book->getParam(BOOK_ID) + QString("\nTytuł: ") + book->getParam(BOOK_TITLE) + QString("\nWydawca: ") + book->getParam(BOOK_PUBLISHER) + QString("\nWydanie: ") + book->getParam(BOOK_EDITION) + bookType + additionalText)
-#define TEXT_GENERATOR_ELEMENT_BOOK_LOG (action + QString("\nData i czas działania: ") + bookLog->getParam(BOOK_LOG_ACTION_DATE_TIME) + QString("\nPersonalia: ") + bookLog->getParam(BOOK_LOG_USER_FIRST_NAME) +  QString(" ") + bookLog->getParam(BOOK_LOG_USER_SURNAME) + QString("\nPesel: ") + bookLog->getParam(BOOK_LOG_USER_PESEL) + perm)
+#define TEXT_GENERATOR_ELEMENT_BOOK_LOG (action + QString("\nData i czas działania: ") + bookLog->getParam(BOOK_LOG_ACTION_DATE_TIME) + QString("\nPersonalia: ") + bookLog->getParam(BOOK_LOG_USER_FIRST_NAME) +  QString(" ") + bookLog->getParam(BOOK_LOG_USER_SURNAME) + QString("\nPesel: ") + bookLog->getParam(BOOK_LOG_USER_PESEL) + perm + addition)
 
 // -------------------------------------------------------------------------------------------------------------
 

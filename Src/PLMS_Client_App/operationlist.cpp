@@ -33,6 +33,48 @@ OperationList::OperationList(FilteredList *parent)
 }
 
 OperationList::~OperationList(){
+    if(parent->getParent()->getBookPanelParent()){
+        BooksLoggedInSave* bookLoggedInSave = nullptr;
+            SET_PTR_NDO(bookLoggedInSave, parent->getParent()->getBookPanelParent()->getSavedBooks());
+            bookLoggedInSave->bookCurrentPage = pageNumber;
+            if(!nextPageAvailable)
+                bookLoggedInSave->nextIdBook = 0;
+    }else{
+        switch(parent->getParent()->getParent()->getCurrentAppWindowLoggedInStat()){
+        case LOGGED_IN_PANEL_BOOKS_STAT:
+        case LOGGED_IN_PANEL_LIBRARY_STAT:
+        case LOGGED_IN_PANEL_MY_BOOKS_STAT:
+        {
+            BooksLoggedInSave* bookLoggedInSave = nullptr;
+            SET_PTR_NDO(bookLoggedInSave, parent->getParent()->getParent()->getSavedBooks());
+            bookLoggedInSave->bookCurrentPage = pageNumber;
+            if(!nextPageAvailable)
+                bookLoggedInSave->nextIdBook = 0;
+        }
+            break;
+        case LOGGED_IN_PANEL_USERS_STAT:
+        case LOGGED_IN_PANEL_READERS_STAT:
+        {
+            UsersLoggedInSave* userLoggedInSave = nullptr;
+            SET_PTR_NDO(userLoggedInSave, parent->getParent()->getParent()->getSavedUsers());
+            userLoggedInSave->userCurrentPage = pageNumber;
+            if(!nextPageAvailable)
+                userLoggedInSave->nextIdUser = 0;
+        }
+            break;
+        case LOGGED_IN_PANEL_BOOK_LOG_STAT:
+        {
+            BookLogsLoggedInSave* bookLogsLoggedInSave = nullptr;
+            SET_PTR_NDO(bookLogsLoggedInSave, parent->getParent()->getParent()->getSavedBookLogs());
+            bookLogsLoggedInSave->bookLogCurrentPage = pageNumber;
+            if(!nextPageAvailable)
+                bookLogsLoggedInSave->nextBookLog = 0;
+        }
+            break;
+        default:
+            break;
+        }
+    }
     disconnectAll();
     deleteWidgets();
 }
@@ -243,14 +285,32 @@ void OperationList::reallocate(bool reload){
 }
 
 bool OperationList::eventMatching(QObject* obj, QEvent* ev){
+    if(upperControlBar.eventMatching(obj, ev))
+        return true;
+    if(bottomControlBar.eventMatching(obj,ev))
+        return true;
     uint i = 0;
     uint numbOfElement = numbOfElements;
-    for(; i < numbOfElement; i++)
-       if((*(elements + i)) && (*(elements + i))->eventMatching(obj, ev))
-           break;
-    if(i < numbOfElement)
-        return true;
-    else {
-        return false;
+    if(elements){
+        for(; i < numbOfElement; i++)
+            if((*(elements + i)) && (*(elements + i))->eventMatching(obj, ev))
+                break;
+        if(i < numbOfElement)
+            return true;
+        else {
+            return false;
+        }
     }
+}
+
+void OperationList::nextPageInit(){
+    pageNumber++;
+    parent->reload(false);
+}
+
+void OperationList::previousPageInit(){
+    nextPageAvailable = false;
+    if(pageNumber > 0)
+        pageNumber--;
+    parent->reload(false);
 }

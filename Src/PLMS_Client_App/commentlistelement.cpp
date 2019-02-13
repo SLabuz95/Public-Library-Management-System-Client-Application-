@@ -139,7 +139,7 @@ void CommentListElement::deleteButtonPressed(){
                 while(!stop){
                     if(appWin->getParent()->getServer().getServerReplyStatus())
                         return;
-                ServerReplyStatus srs = appWin->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_EDIT_TEXT, POST, jDoc);
+                ServerReplyStatus srs = appWin->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_COMMENT_REMOVE_TEXT, POST, jDoc);
                 switch (srs) {
                 case SERVER_NO_ERROR:
                 {

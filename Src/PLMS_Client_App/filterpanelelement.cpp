@@ -988,7 +988,7 @@ bool FilterPanelElement::lineEditKeyPressed(QKeyEvent *ev){
         case Qt::Key_Shift:
             return true;
         case Qt::Key_Space:
-            return true;
+            lineEdit->insert(" ");
         case Qt::Key_Control:
             return true;
         case Qt::Key_Backspace:

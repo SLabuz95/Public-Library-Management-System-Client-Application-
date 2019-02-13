@@ -60,11 +60,11 @@ bool ChangePasswordPanel::eventMatching(QObject *obj, QEvent *ev){
     case QEvent::KeyPress:
     {
         if(obj == &oldPasswordLE){
-            if(!standardLEKeyPressed(static_cast<QKeyEvent*>(ev), &oldPasswordLE))
+            if(standardLEKeyPressed(static_cast<QKeyEvent*>(ev), &oldPasswordLE))
                 return true;
         }
         if(obj == &newPasswordLE){
-            if(!standardLEKeyPressed(static_cast<QKeyEvent*>(ev), &newPasswordLE))
+            if(standardLEKeyPressed(static_cast<QKeyEvent*>(ev), &newPasswordLE))
                 return true;
         }
     }

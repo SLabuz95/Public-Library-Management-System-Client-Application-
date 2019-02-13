@@ -50,7 +50,7 @@ void OperationListElementMyBooks::createWidgets(){
 
 void OperationListElementMyBooks::createLayout(){
     // Brak
-    addCommentButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET, generalInfoLabel.height() + OPERATION_ELEMENT_VERTICAL_OFFSET);
+    addCommentButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET , generalInfoLabel.height() + OPERATION_ELEMENT_VERTICAL_OFFSET * 2);
         commentsButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET * 2+ addCommentButton.width() , addCommentButton.y());
         if(commentList){
             commentList->move(0, generalInfoLabel.height() + 2 * OPERATION_ELEMENT_VERTICAL_OFFSET + OPERATION_ELEMENT_BUTTON_HEIGHT);

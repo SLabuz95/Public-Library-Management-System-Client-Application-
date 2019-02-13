@@ -15,7 +15,7 @@ OperationPanelBookData::OperationPanelBookData(AppWindowLoggedInPanel* parent)
     : LoggedInOperationPanel(parent),
       bookDataTitleLabel(this),
       scrollArea(this),
-      dataPanel(this, parent->getBookDataPtr(), DATA_MODE), // _PH_ Catch pointer from parent
+      dataPanel(this, parent->getBookDataPtr(), DATA_MODE),
       changeDataButton(this),
       removeButton(this)
 {
@@ -270,7 +270,7 @@ void OperationPanelBookData::removeButtonPressed(){
                     while(!stop){
                         if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
                             return;
-                    ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_CLIENT_REMOVE_TEXT, POST, jDoc);
+                    ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_REMOVE_TEXT, POST, jDoc);
                     switch (srs) {
                     case SERVER_NO_ERROR:
                     {
@@ -283,8 +283,7 @@ void OperationPanelBookData::removeButtonPressed(){
                                 // ______________________________________________________________________________________________________
                                 parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_WARNING, QString("Usuwanie książki udane."));
                                 // Logout Application
-                                parent->setAppWindowLoggedInStatus(parent->getCurrentAppWindowLoggedInStat(), true);
-
+                                parent->setAppWindowLoggedInStatus(parent->getLastAppWindowLoggedInStat(), true);
                                 // __________________________________________________________________
                             }
                                 break;

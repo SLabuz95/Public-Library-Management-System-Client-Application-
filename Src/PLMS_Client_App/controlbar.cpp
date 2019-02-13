@@ -123,10 +123,9 @@ bool ControlBar::eventMatching(QObject *obj, QEvent *ev){
 }
 
 void ControlBar::leftArrowButtonPressed(){
-
+    parent->previousPageInit();
 }
 
 void ControlBar::rightArrowButtonPressed(){
-
+    parent->nextPageInit();
 }
-

@@ -249,13 +249,27 @@ void BookDataPanel::createLayout(){
         bookStatusValueLabel.hide();
     }
 
-    if(book && book->getBookStatus() == BOOK_STATUS_RESERVED){
+    if(book && book->getBookStatus() != BOOK_STATUS_FREE){
     // Book Pesel Label
     dateLabel->setGeometry(BOOK_DATA_PANEL_BOOK_DATE_LABEL_X,BOOK_DATA_PANEL_BOOK_DATE_LABEL_Y,BOOK_DATA_PANEL_BOOK_DATE_LABEL_WIDTH(false),BOOK_DATA_PANEL_BOOK_DATE_LABEL_HEIGHT);
-    dateLabel->setText(BOOK_DATA_PANEL_RESERVED_DATE_TEXT);
+    switch(book->getBookStatus()){
+        case BOOK_STATUS_RESERVED:
+        dateLabel->setText(BOOK_DATA_PANEL_RESERVED_DATE_TEXT);
+        break;
+    case BOOK_STATUS_EXPIRED:
+        dateLabel->setText(BOOK_DATA_PANEL_EXPIRED_DATE_TEXT);
+        break;
+    case BOOK_STATUS_CHECKED_OUT:
+        dateLabel->setText(BOOK_DATA_PANEL_CHECKOUT_DATE_TEXT);
+        break;
+    default:
+        break;
+    }
     dateLabel->setStyleSheet(STYLESHEET_DATA_LABEL);
     dateLabel->show();
     // Book Pesel Field
+    if(book)
+        dateValueLabel->setText(book->getParam(BOOK_DATE));
     dateValueLabel->setGeometry(BOOK_DATA_PANEL_BOOK_DATE_FIELD_X(false),BOOK_DATA_PANEL_BOOK_DATE_FIELD_Y,BOOK_DATA_PANEL_BOOK_DATE_FIELD_WIDTH(false),BOOK_DATA_PANEL_BOOK_DATE_FIELD_HEIGHT);
     dateValueLabel->setStyleSheet(STYLESHEET_DATA_LABEL);
     dateValueLabel->show();

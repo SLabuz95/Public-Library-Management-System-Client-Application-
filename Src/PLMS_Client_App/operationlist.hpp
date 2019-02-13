@@ -72,6 +72,8 @@ public:
 
     void reallocate(bool);
 
+    void nextPageInit();
+    void previousPageInit();
 };
 
 

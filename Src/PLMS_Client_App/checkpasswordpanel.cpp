@@ -58,7 +58,7 @@ bool CheckPasswordPanel::eventMatching(QObject *obj, QEvent *ev){
         break;
     case QEvent::KeyPress:
     {
-        if(!passwordLEKeyPressed(static_cast<QKeyEvent*>(ev))){
+        if(passwordLEKeyPressed(static_cast<QKeyEvent*>(ev))){
             return true;
         }
     }

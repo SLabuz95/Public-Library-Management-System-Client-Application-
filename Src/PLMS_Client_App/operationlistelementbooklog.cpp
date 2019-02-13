@@ -92,7 +92,7 @@ void OperationListElementBookLog::generateText(){
     default:
         break;
     }
-    QString perm = QString("Uprawnienia: ");
+    QString perm = QString("\nUprawnienia: ");
     switch (bookLog->getUserPermissions()) {
     case USER_PERMISSIONS_ADMIN:
         perm.append("Administrator");
@@ -102,6 +102,8 @@ void OperationListElementBookLog::generateText(){
         break;
     case USER_PERMISSIONS_LIBRARIAN:
         perm.append("Bibliotekarz");
+        break;
+    default:
         break;
     }
     QString addition;
@@ -124,10 +126,10 @@ void OperationListElementBookLog::generateText(){
         if(bookLog->getUserId() != 0){
             switch (bookLog->getAction()) {
             case BOOK_LOG_ACTION_ADD_EDIT_COMMENT:
-                addition.append(QString("\nKomentarz użytkownika #") + bookLog->getParam(BOOK_LOG_USER_ID_COMMENT) + QString("został dodany/edytowany o treści:\n") + bookLog->getParam(BOOK_LOG_COMMENT_CONTENT));
+                addition.append(QString("\nKomentarz użytkownika #") + bookLog->getParam(BOOK_LOG_USER_ID_COMMENT) + QString(" został dodany/edytowany o treści:\n") + bookLog->getParam(BOOK_LOG_COMMENT_CONTENT));
                 break;
             case BOOK_LOG_ACTION_REMOVE_COMMENT:
-                addition.append(QString("\nKomentarz użytkownika #") + bookLog->getParam(BOOK_LOG_USER_ID_COMMENT) + QString("został usunięty o treści:\n") + bookLog->getParam(BOOK_LOG_COMMENT_CONTENT));
+                addition.append(QString("\nKomentarz użytkownika #") + bookLog->getParam(BOOK_LOG_USER_ID_COMMENT) + QString(" został usunięty o treści:\n") + bookLog->getParam(BOOK_LOG_COMMENT_CONTENT));
                 break;
             default:
                 break;

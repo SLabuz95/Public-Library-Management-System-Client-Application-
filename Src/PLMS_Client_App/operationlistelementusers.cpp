@@ -35,7 +35,7 @@ OperationListElementUsers::~OperationListElementUsers(){
 void OperationListElementUsers::init(){
     generateText();
     bookMenagerButton.setText("Panel książek");
-    readerDataButton.setText("Dane czytelnika");
+    readerDataButton.setText("Dane użytkownika");
     removeUserButton.setText("Usuń użytkownika");
     bookMenagerButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
     readerDataButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
@@ -46,7 +46,7 @@ void OperationListElementUsers::init(){
             removeUserButton.resize(OPERATION_ELEMENT_BUTTON_WIDTH_CALC(3), OPERATION_ELEMENT_BUTTON_HEIGHT);
     }else{
         if(user->getUserPermissions() == USER_PERMISSIONS_LIBRARIAN)
-            removeUserButton.resize(OPERATION_ELEMENT_BUTTON_WIDTH_CALC(3), OPERATION_ELEMENT_BUTTON_HEIGHT);
+            removeUserButton.resize(OPERATION_ELEMENT_BUTTON_WIDTH_CALC(2), OPERATION_ELEMENT_BUTTON_HEIGHT);
     }
     bookMenagerButton.setAlignment(Qt::AlignCenter);
     readerDataButton.setAlignment(Qt::AlignCenter);
@@ -70,12 +70,13 @@ void OperationListElementUsers::createLayout(){
                 readerDataButton.show();
                 removeUserButton.show();
             }else{
-                removeUserButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET * 2 + removeUserButton.width() , generalInfoLabel.height() + OPERATION_ELEMENT_VERTICAL_OFFSET);
+                readerDataButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET, generalInfoLabel.height() + OPERATION_ELEMENT_VERTICAL_OFFSET);
+                removeUserButton.move(OPERATION_ELEMENT_BUTTON_WIDTH + OPERATION_ELEMENT_HORIZONTAL_OFFSET * 2 + readerDataButton.width() , readerDataButton.y());
                 removeUserButton.show();
                 bookMenagerButton.hide();
-                readerDataButton.hide();
                 if(user->getUserId() == parent->getParent()->getParent()->getParent()->getUser()->getUserId()){
                     removeUserButton.hide();
+                    readerDataButton.hide();
                     resize(OPERATION_ELEMENT_WIDTH,generalInfoLabel.height() + 2 * OPERATION_ELEMENT_VERTICAL_OFFSET);
                 }
             }
@@ -183,11 +184,7 @@ bool OperationListElementUsers::eventMatching(QObject *obj, QEvent *ev){
 void OperationListElementUsers::bookMenagerButtonPressed(){
     Dialog dlg(BOOK_PANEL, user, parent->getParent()->getParent()->getParent());
     dlg.exec();
-    generateText();
-    setWindow();
-    createWidgets();
-    createLayout();
-    connectAll();
+    parent->getParent()->reload(false);
 }
 
 void OperationListElementUsers::readerDataButtonPressed(){
@@ -271,5 +268,5 @@ void OperationListElementUsers::removeUserButtonPressed(){
     default:
         break;
     }
-
+    parent->getParent()->reload(false);
 }

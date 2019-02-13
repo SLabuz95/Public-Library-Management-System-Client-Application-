@@ -233,6 +233,7 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
     AppWindowLoggedInPanel* appWindow = static_cast<AppWindowLoggedInPanel*>( bookPanel->getParent()->getParent());
     Book bookSend;
     QString cmd;
+    BookStatus lastState= book->getBookStatus();
     switch (book->getBookStatus()) {
     case BOOK_STATUS_FREE:
     case BOOK_STATUS_RESERVED:
@@ -250,21 +251,14 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
     {
             // Try to remove account
             bookSend.setBookId(book->getBookId());
-            if(book->getBookStatus() == BOOK_STATUS_FREE){
-                bookSend.setParam(BOOK_USER_ID, bookPanel->getUser()->getParam(USER_ID));
-            }
+            bookSend.setParam(BOOK_USER_ID, bookPanel->getUser()->getParam(USER_ID));
             cmd = COMMAND_TYPE_BOOK_RETURN_TEXT;
     }
         break;
     default:
             return;
     }
-    // Try to remove account
-    bookSend.setBookId(book->getBookId());
-    if(book->getBookStatus() == BOOK_STATUS_FREE){
-        bookSend.setParam(BOOK_USER_ID, bookPanel->getUser()->getParam(USER_ID));
-    }
-     // Create Json User
+    // Create Json User
             QJsonArray jA;
             QJsonObject bookObj;
             bookSend.writeJson(bookObj);
@@ -273,6 +267,8 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
             QJsonDocument jDoc(bookObj);
             bool stop = false;
             while(!stop){
+                if(appWindow->getParent()->getParent()->getServer().getServerReplyStatus())
+                    return;
             ServerReplyStatus srs = appWindow->getParent()->getParent()->getServer().setLastRequest(cmd, POST, jDoc);
             switch (srs) {
             case SERVER_NO_ERROR:
@@ -285,6 +281,13 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
                     {
                         // ______________________________________________________________________________________________________
                         book->merge(bookSend);
+                        if(lastState != BOOK_STATUS_RESERVED){
+                            User tempUser;
+                            User* user = bookPanel->getUser();
+                            tempUser.setUserId(user->getUserId());
+                            tempUser.setParam(USER_BOOK_ID, book->getParam(BOOK_ID));
+                            user->merge(tempUser);
+                        }
                         // __________________________________________________________________
                     }
                         break;
@@ -320,8 +323,7 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
                 break;
             }
            }
-    reload(true);
-    parent->reallocate(true);
+    parent->getParent()->reload(false);
 }
 
 Book* OperationListElementBookPanelUsersBooks::getBook(){

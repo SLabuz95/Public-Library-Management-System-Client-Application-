@@ -50,8 +50,7 @@ private:
 public:
     // Funkcje Get / Set
     OperationList* getParent();
-
-    bool eventMatching(QObject* obj, QEvent* ev);
+     bool eventMatching(QObject* obj, QEvent* ev);
     // Funkcja odświeżenia informacji na podstawie stanu rodzica
     void repaint(bool, uint);
 };

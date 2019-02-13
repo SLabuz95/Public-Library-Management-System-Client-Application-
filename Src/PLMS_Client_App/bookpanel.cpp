@@ -123,7 +123,8 @@ BookFiltersLoggedInSave* BookPanel::getSavedBookFilters(){
 
 void BookPanel::readDataFromServer(){
     // Prepare ReadFilesRules
-
+    bool getPreviousPage = false;
+    do{
             QString command;
             QJsonArray filtersArray;
             QJsonObject tempObj;
@@ -138,7 +139,7 @@ void BookPanel::readDataFromServer(){
                     savedBooks.bookCurrentPage = 0;
                     return;
                 }
-                tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(USER_ID));
+                tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(BOOK_USER_ID));
                 tempObj.insert(READ_FILE_RULES_FILTER_VALUE_TEXT, QString::number(user->getUserId()));
                 filtersArray.append(tempObj);
             }else{
@@ -157,6 +158,9 @@ void BookPanel::readDataFromServer(){
                 tempObj.insert(READ_FILE_RULES_FILE_TYPE_TEXT, QString::number(FILE_TYPE_BOOKS_FILE));
                 if(savedBooks.nextIdBook != 0)
                     tempObj.insert(READ_FILE_RULES_START_ID_TEXT, QString::number(savedBooks.nextIdBook));
+                else {
+                    tempObj.insert(READ_FILE_RULES_SKIP_NUMB, QString::number(savedBooks.bookCurrentPage * 20));
+                }
                 tempObj.insert(READ_FILE_RULES_MAX_READ_TEXT, QString::number(20));
                 msgObj.insert(READ_FILE_RULES_JSON_KEY_TEXT, tempObj);
 
@@ -165,6 +169,8 @@ void BookPanel::readDataFromServer(){
             QJsonDocument jDoc(msgObj);
             bool stop = false;
             while(!stop){
+                if(appWindow->getParent()->getParent()->getServer().getServerReplyStatus())
+                    return;
             ServerReplyStatus srs = appWindow->getParent()->getParent()->getServer().setLastRequest(command, POST, jDoc);
             switch (srs) {
             case SERVER_NO_ERROR:
@@ -186,9 +192,14 @@ void BookPanel::readDataFromServer(){
                                 uint len = retArray.count();
                                 if(len > 0){
                                     SET_PTR_DOA(savedBooks.books, new Book[len]);
+                                    getPreviousPage = false;
                                 }
                                 else{
                                     SET_PTR_DOA(savedBooks.books, nullptr);
+                                    if(savedBooks.bookCurrentPage > 0){
+                                        savedBooks.bookCurrentPage--;
+                                        getPreviousPage = true;
+                                    }
                                 }
                                 savedBooks.numbOfBooks = len;
                                 for(uint i = 0; i < len; i++){
@@ -234,6 +245,7 @@ void BookPanel::readDataFromServer(){
                 break;
             }
            }
+     }while(getPreviousPage);
 }
 
 void BookPanel::reload(bool reloadDynamic){

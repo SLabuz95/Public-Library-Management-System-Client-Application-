@@ -153,7 +153,7 @@ void AddCommentPanel::acceptButtonPressed(){
         while(!stop){
             if(appWindow->getParent()->getServer().getServerReplyStatus())
                 return;
-        ServerReplyStatus srs = appWindow->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_EDIT_TEXT, POST, jDoc);
+        ServerReplyStatus srs = appWindow->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_COMMENT_ADD_EDIT_TEXT, POST, jDoc);
         switch (srs) {
         case SERVER_NO_ERROR:
         {

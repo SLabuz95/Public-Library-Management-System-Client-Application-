@@ -106,21 +106,7 @@ void OperationPanelFilteredList::reload(bool reloadDynamic)
 }
 
 bool OperationPanelFilteredList::eventMatching(QObject* obj, QEvent* ev){
-    switch (ev->type()) {
-    case QEvent::MouseButtonRelease:
-    {
-
-    }
-        break;
-    case QEvent::KeyPress:
-    {
-
-    }
-        break;
-    default:
-        break;
-    }
-    return QObject::eventFilter(obj, ev);
+   return QObject::eventFilter(obj, ev);
 }
 
 BookPanel* OperationPanelFilteredList::getBookPanelParent(){

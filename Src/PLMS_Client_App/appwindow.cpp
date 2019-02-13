@@ -40,6 +40,7 @@ void AppWindow::setAppWindowStat(AppWindowStat aws){
     if(aws == *appWindowStat && aws == APP_WINDOW_STAT_LOGGED_IN){
         createWidgets();
         createLayout();
+        return;
     }
     if(aws != *appWindowStat){
         WINDOW_STATUS_SAVE(appWindowStat);

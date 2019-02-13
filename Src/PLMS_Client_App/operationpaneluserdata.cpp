@@ -15,7 +15,7 @@ OperationPanelUserData::OperationPanelUserData(AppWindowLoggedInPanel* parent)
     : LoggedInOperationPanel(parent),
       userDataTitleLabel(this),
       scrollArea(this),
-      dataPanel(this, parent->getUserDataPtr(), DATA_MODE),  // _PH_ Catch pointer from parent
+      dataPanel(this, parent->getUserDataPtr(), DATA_MODE),
       bookPanelButton(this),
       changeDataButton(this),
       removeAccountButton(this)
@@ -184,7 +184,7 @@ bool OperationPanelUserData::eventMatching(QObject* obj, QEvent* ev){
 
 void OperationPanelUserData::bookPanelButtonPressed(){
     if(dataPanel.getUser()){
-        Dialog dlg(BOOK_PANEL, dataPanel.getUser(), parent->getParent());
+        Dialog dlg(BOOK_PANEL, dataPanel.getUser(), parent);
         dlg.exec();
         reload();
     }else{
@@ -307,6 +307,8 @@ void OperationPanelUserData::removeAccountButtonPressed(){
                     QJsonDocument jDoc(userObj);
                     bool stop = false;
                     while(!stop){
+                        if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
+                            return;
                     ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_CLIENT_REMOVE_TEXT, POST, jDoc);
                     switch (srs) {
                     case SERVER_NO_ERROR:
@@ -320,7 +322,7 @@ void OperationPanelUserData::removeAccountButtonPressed(){
                                 // ______________________________________________________________________________________________________
                                 parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_WARNING, QString("Usuwanie konta udane."));
                                 // Logout Application
-                                parent->setAppWindowLoggedInStatus(parent->getCurrentAppWindowLoggedInStat(), true);
+                                parent->setAppWindowLoggedInStatus(parent->getLastAppWindowLoggedInStat(), true);
 
                                 // __________________________________________________________________
                             }

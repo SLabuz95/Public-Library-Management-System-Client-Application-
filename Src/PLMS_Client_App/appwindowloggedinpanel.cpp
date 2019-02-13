@@ -473,7 +473,9 @@ Book* AppWindowLoggedInPanel::getBookDataPtr(){
 
 void AppWindowLoggedInPanel::readDataFromServer(){
 
+    bool getPreviousPage = false;
     // Prepare ReadFilesRules
+    do{
     QString command;
     QJsonArray filtersArray;
     QJsonObject tempObj;
@@ -497,6 +499,9 @@ void AppWindowLoggedInPanel::readDataFromServer(){
         tempObj.insert(READ_FILE_RULES_FILE_TYPE_TEXT, QString::number(FILE_TYPE_BOOKS_FILE));
         if(savedBooks.nextIdBook != 0)
             tempObj.insert(READ_FILE_RULES_START_ID_TEXT, QString::number(savedBooks.nextIdBook));
+        else {
+            tempObj.insert(READ_FILE_RULES_SKIP_NUMB, QString::number(savedBooks.bookCurrentPage * 20));
+        }
         tempObj.insert(READ_FILE_RULES_MAX_READ_TEXT, QString::number(20));
         msgObj.insert(READ_FILE_RULES_JSON_KEY_TEXT, tempObj);
         command = COMMAND_TYPE_BOOK_READ_TEXT;
@@ -520,6 +525,9 @@ void AppWindowLoggedInPanel::readDataFromServer(){
             tempObj.insert(READ_FILE_RULES_FILE_TYPE_TEXT, QString::number(FILE_TYPE_CLIENTS_FILE));
             if(savedUsers.nextIdUser != 0)
                 tempObj.insert(READ_FILE_RULES_START_ID_TEXT, QString::number(savedUsers.nextIdUser));
+            else {
+                tempObj.insert(READ_FILE_RULES_SKIP_NUMB, QString::number(savedUsers.userCurrentPage * 20));
+            }
             tempObj.insert(READ_FILE_RULES_MAX_READ_TEXT, QString::number(20));
             msgObj.insert(READ_FILE_RULES_JSON_KEY_TEXT, tempObj);
             command = COMMAND_TYPE_CLIENT_READ_TEXT;
@@ -528,11 +536,11 @@ void AppWindowLoggedInPanel::readDataFromServer(){
     case LOGGED_IN_PANEL_BOOK_LOG_STAT:
     {
         if(user->getUserPermissions() != USER_PERMISSIONS_ADMIN){
-        tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(USER_PERMISSIONS));
+        tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(BOOK_LOG_USER_PERMISSIONS));
         tempObj.insert(READ_FILE_RULES_FILTER_VALUE_TEXT, QString::number(USER_PERMISSIONS_READER));
         filtersArray.append(tempObj);
         tempObj = QJsonObject();
-        tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(USER_PERMISSIONS));
+        tempObj.insert(READ_FILE_RULES_FILTER_PARAM_TEXT, QString::number(BOOK_LOG_USER_PERMISSIONS));
         tempObj.insert(READ_FILE_RULES_FILTER_VALUE_TEXT, QString::number(USER_PERMISSIONS_LIBRARIAN));
         filtersArray.append(tempObj);
         }
@@ -545,8 +553,7 @@ void AppWindowLoggedInPanel::readDataFromServer(){
             tempObj = QJsonObject();
             tempObj.insert(READ_FILE_RULES_FILTER_TEXT, filtersArray);
             tempObj.insert(READ_FILE_RULES_FILE_TYPE_TEXT, QString::number(FILE_TYPE_BOOK_LOG_FILE));
-            if(savedBookLogs.nextBookLog != 0)
-                tempObj.insert(READ_FILE_RULES_SKIP_NUMB, QString::number(savedBookLogs.nextBookLog));
+            tempObj.insert(READ_FILE_RULES_SKIP_NUMB, QString::number(savedBookLogs.bookLogCurrentPage * 20));
             tempObj.insert(READ_FILE_RULES_MAX_READ_TEXT, QString::number(20));
             msgObj.insert(READ_FILE_RULES_JSON_KEY_TEXT, tempObj);
             command = COMMAND_TYPE_BOOK_LOG_READ_TEXT;
@@ -587,9 +594,13 @@ void AppWindowLoggedInPanel::readDataFromServer(){
                         uint len = retArray.count();
                         if(len > 0){
                             SET_PTR_DOA(savedBooks.books, new Book[len]);
-                        }
-                        else{
+                            getPreviousPage = false;
+                        }else{
                             SET_PTR_DOA(savedBooks.books, nullptr);
+                            if(savedBooks.bookCurrentPage > 0){
+                                savedBooks.bookCurrentPage--;
+                                getPreviousPage = true;
+                            }
                         }
                         savedBooks.numbOfBooks = len;
                         for(uint i = 0; i < len; i++){
@@ -615,9 +626,14 @@ void AppWindowLoggedInPanel::readDataFromServer(){
                         uint len = retArray.count();
                         if(len > 0){
                             SET_PTR_DOA(savedUsers.users, new User[len]);
+                            getPreviousPage = false;
                         }
                         else{
                             SET_PTR_DOA(savedUsers.users, nullptr);
+                            if(savedUsers.userCurrentPage > 0){
+                                savedUsers.userCurrentPage--;
+                                getPreviousPage = true;
+                            }
                         }
                         savedUsers.numbOfUsers = len;
                         for(uint i = 0; i < len; i++){
@@ -642,9 +658,14 @@ void AppWindowLoggedInPanel::readDataFromServer(){
                         uint len = retArray.count();
                         if(len > 0){
                             SET_PTR_DOA(savedBookLogs.bookLogs, new BookLog[len]);
+                            getPreviousPage = false;
                         }
                         else{
                             SET_PTR_DOA(savedBookLogs.bookLogs, nullptr);
+                            if(savedBookLogs.bookLogCurrentPage > 0){
+                                savedBookLogs.bookLogCurrentPage--;
+                                getPreviousPage = true;
+                            }
                         }
                         savedBookLogs.numbOfBookLogs = len;
                         for(uint i = 0; i < len; i++){
@@ -694,6 +715,7 @@ void AppWindowLoggedInPanel::readDataFromServer(){
         break;
     }
    }
+  }while(getPreviousPage);
 
 }
 

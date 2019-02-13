@@ -71,6 +71,7 @@ void OperationListElementLibrary::createLayout(){
             commentsButton.move(OPERATION_ELEMENT_BUTTON_WIDTH +  OPERATION_ELEMENT_HORIZONTAL_OFFSET * 3 + addCommentButton.width() + commentsButton.width(), addCommentButton.y());
             reserveBookButton.show();
         }else{
+            reserveBookButton.hide();
             addCommentButton.move(2*OPERATION_ELEMENT_BUTTON_WIDTH , generalInfoLabel.height() + 2 * OPERATION_ELEMENT_VERTICAL_OFFSET);
             commentsButton.move(3*OPERATION_ELEMENT_BUTTON_WIDTH + addCommentButton.width() , addCommentButton.y());
         }
@@ -259,7 +260,78 @@ bool OperationListElementLibrary::eventMatching(QObject *obj, QEvent *ev){
 
 
 void OperationListElementLibrary::reserveBookButtonPressed(){
-    // _PH_ Implement
+    AppWindowLoggedInPanel* appWindow = static_cast<AppWindowLoggedInPanel*>(parent->getParent()->getParent()->getParent());
+    Book bookSend;
+    // Try to remove account
+        bookSend.setBookId(book->getBookId());
+        bookSend.setParam(BOOK_USER_ID, appWindow->getUser()->getParam(USER_ID));
+
+    // Try to remove account
+     // Create Json User
+            QJsonArray jA;
+            QJsonObject bookObj;
+            bookSend.writeJson(bookObj);
+            jA.append(bookObj);
+            bookObj.insert(BOOK_JSON_KEY_TEXT, jA);
+            QJsonDocument jDoc(bookObj);
+            bool stop = false;
+            while(!stop){
+                if(appWindow->getParent()->getParent()->getServer().getServerReplyStatus())
+                    return;
+            ServerReplyStatus srs = appWindow->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_RESERVE_TEXT, POST, jDoc);
+            switch (srs) {
+            case SERVER_NO_ERROR:
+            {
+                appWindow->getParent()->getPromptPanel().setServerStatusConnection();
+                QJsonObject obj = appWindow->getParent()->getParent()->getServer().readAll();
+                if(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT) != QJsonValue::Undefined){
+                    switch(static_cast<ReturnErrorType>(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt())){
+                    case RETURN_ERROR_NO_ERROR:
+                    {
+                        // ______________________________________________________________________________________________________
+                        book->merge(bookSend);
+                        User tempUser;
+                        User* user = appWindow->getUser();
+                        tempUser.setUserId(user->getUserId());
+                        tempUser.setParam(USER_BOOK_ID, book->getParam(BOOK_ID));
+                        user->merge(tempUser);
+
+                        // __________________________________________________________________
+                    }
+                        break;
+                        // _PH_ Check other errors
+                        default:
+                        //  Prompt Server Error
+                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        break;
+                    }
+                }
+                // _____________________________________________________________________________________________________________
+               stop = true;
+               appWindow->getParent()->getParent()->getServer().clearStatus();
+            }
+                break;
+            case SERVER_NETWORK_ERROR:
+            {
+                // __________________________________________________________________________________
+                QNetworkReply::NetworkError error = appWindow->getParent()->getParent()->getServer().getNetworkError();
+                if(error == QNetworkReply::ConnectionRefusedError || error == QNetworkReply::TimeoutError){
+                    appWindow->getParent()->getPromptPanel().setServerStatusNoConnection();
+                }
+                // ____________________________________________________________________________________
+                stop = true;
+                appWindow->getParent()->getParent()->getServer().clearStatus();
+            }
+                break;
+            case SERVER_READY:
+                stop = true;
+                appWindow->getParent()->getParent()->getServer().clearStatus();
+                break;
+            default:
+                break;
+            }
+           }
+    parent->getParent()->reload(false);
 }
 
 void OperationListElementLibrary::commentsButtonPressed(){

@@ -9,5 +9,7 @@
         <file>closeButtonIcon.png</file>
         <file>leftExtendArrowIcon.png</file>
         <file>rightExtendArrowIcon.png</file>
+        <file>addIcon.png</file>
+        <file>CP_button.png</file>
     </qresource>
 </RCC>
