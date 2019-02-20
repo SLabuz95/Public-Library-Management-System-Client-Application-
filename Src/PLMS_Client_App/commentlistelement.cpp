@@ -137,8 +137,10 @@ void CommentListElement::deleteButtonPressed(){
                 QJsonDocument jDoc(userObj);
                 bool stop = false;
                 while(!stop){
-                    if(appWin->getParent()->getServer().getServerReplyStatus())
+                    if(appWin->getParent()->getServer().getServerReplyStatus()){
+                        SET_PTR_DO(bookCom, nullptr);
                         return;
+                    }
                 ServerReplyStatus srs = appWin->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_COMMENT_REMOVE_TEXT, POST, jDoc);
                 switch (srs) {
                 case SERVER_NO_ERROR:
@@ -152,14 +154,13 @@ void CommentListElement::deleteButtonPressed(){
                             // ______________________________________________________________________________________________________
                             book->merge(*bookCom);
                             parent->removeElement(this);
-
                             // __________________________________________________________________
                         }
                             break;
                             // _PH_ Check other errors
                             default:
                             //  Prompt Server Error
-                            appWin->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                            appWin->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Usuwanie komentarza nieudane."));
                             break;
                         }
                     }

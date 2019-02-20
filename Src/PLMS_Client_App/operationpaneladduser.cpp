@@ -125,11 +125,11 @@ bool OperationPanelAddUser::eventMatching(QObject* obj, QEvent* ev){
     case QEvent::Leave:
     {
         if(obj == &addButton){
-            addButton.setStyleSheet(STYLESHEET_BUTTON_HIGHLIGHT);
+            addButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
             break;
         }
         if(obj == &cancelButton){
-            cancelButton.setStyleSheet(STYLESHEET_BUTTON_HIGHLIGHT);
+            cancelButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
             break;
         }
     }
@@ -159,8 +159,10 @@ void OperationPanelAddUser::addButtonPressed(){
             QJsonDocument jDoc(userObj);
             bool stop = false;
             while(!stop){
-                if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
+                if(parent->getParent()->getParent()->getServer().getServerReplyStatus()){
+                    SET_PTR_DO(userReg, nullptr);
                     return;
+                }
             ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_CLIENT_ADD_TEXT, POST, jDoc);
             switch (srs) {
             case SERVER_NO_ERROR:
@@ -182,20 +184,20 @@ void OperationPanelAddUser::addButtonPressed(){
                                 if(user->getUserId() != 0 && user->checkUserParameters()){
                                     parent->setAppWindowLoggedInStatus(LOGGED_IN_PANEL_YOUR_ACCOUNT_STAT, true);
                                 }else{
-                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd przetwarzania danych - Tworzenie konta nieudane."));
+                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd przetwarzania danych - Dodawanie użytkownika nieudane."));
                                 }
                             }
                             // ______________________________________________________________________________________________________
                         }else{
                             //  Prompt Server Error
-                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera - Tworzenie konta nieudane."));
+                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera - Dodawanie użytkownika nieudane."));
                         }
                     }
                         break;
                         // _PH_ Check other errors
                     default:
                         //  Prompt Server Error
-                        parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Dodawanie użytkownika nieudane."));
                         break;
                     }
                 }

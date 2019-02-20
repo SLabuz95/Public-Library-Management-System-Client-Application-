@@ -155,6 +155,7 @@ void OperationPanelBookData::changeDataButtonPressed(){
             }else {
                 Dialog dlg(QUESTION_DIALOG, QString("Błąd programu"), QString("Błąd pamięci programu"), nullptr, QString("Ok"));
                 dlg.exec();
+                SET_PTR_DO(bookEdit, nullptr);
                 return;
             }
             // Create Json User
@@ -168,8 +169,10 @@ void OperationPanelBookData::changeDataButtonPressed(){
                 QJsonDocument jDoc(bookObj);
                 bool stop = false;
                 while(!stop){
-                    if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
+                    if(parent->getParent()->getParent()->getServer().getServerReplyStatus()){
+                        SET_PTR_DO(bookEdit, nullptr);
                         return;
+                    }
                 ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_EDIT_TEXT, POST, jDoc);
                 switch (srs) {
                 case SERVER_NO_ERROR:
@@ -290,7 +293,7 @@ void OperationPanelBookData::removeButtonPressed(){
                                 // _PH_ Check other errors
                                 default:
                                 //  Prompt Server Error
-                                parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                                parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Usuwanie książki nieudane."));
                                 break;
                             }
                         }

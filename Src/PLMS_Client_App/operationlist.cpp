@@ -301,6 +301,7 @@ bool OperationList::eventMatching(QObject* obj, QEvent* ev){
             return false;
         }
     }
+    return false;
 }
 
 void OperationList::nextPageInit(){

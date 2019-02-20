@@ -231,6 +231,7 @@ bool OperationListElementBookPanelUsersBooks::eventMatching(QObject *obj, QEvent
 void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
     BookPanel* bookPanel =  parent->getParent()->getParent()->getBookPanelParent();
     AppWindowLoggedInPanel* appWindow = static_cast<AppWindowLoggedInPanel*>( bookPanel->getParent()->getParent());
+    parent->nextPageAvailable = false;
     Book bookSend;
     QString cmd;
     BookStatus lastState= book->getBookStatus();
@@ -238,7 +239,6 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
     case BOOK_STATUS_FREE:
     case BOOK_STATUS_RESERVED:
     {
-        // Try to remove account
         bookSend.setBookId(book->getBookId());
         if(book->getBookStatus() == BOOK_STATUS_FREE){
             bookSend.setParam(BOOK_USER_ID, bookPanel->getUser()->getParam(USER_ID));
@@ -249,7 +249,6 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
     case BOOK_STATUS_CHECKED_OUT:
     case BOOK_STATUS_EXPIRED:
     {
-            // Try to remove account
             bookSend.setBookId(book->getBookId());
             bookSend.setParam(BOOK_USER_ID, bookPanel->getUser()->getParam(USER_ID));
             cmd = COMMAND_TYPE_BOOK_RETURN_TEXT;
@@ -287,14 +286,14 @@ void OperationListElementBookPanelUsersBooks::actionButtonPressed(){
                             tempUser.setUserId(user->getUserId());
                             tempUser.setParam(USER_BOOK_ID, book->getParam(BOOK_ID));
                             user->merge(tempUser);
-                        }
+                        }                        
                         // __________________________________________________________________
                     }
                         break;
                         // _PH_ Check other errors
                         default:
                         //  Prompt Server Error
-                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Operacja nieudana."));
                         break;
                     }
                 }

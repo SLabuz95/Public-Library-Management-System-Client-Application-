@@ -12,7 +12,6 @@ public:
 
 private:
     User* user = nullptr;
-
     QLabel bookMenagerButton;
     QLabel readerDataButton;
     QLabel removeUserButton;
@@ -39,7 +38,6 @@ protected:
     void reload();
 
     bool eventMatching(QObject*, QEvent*);
-
 
 };
 

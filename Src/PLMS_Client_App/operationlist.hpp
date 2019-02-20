@@ -45,8 +45,6 @@ protected:
 
     uint elementsHeight = 0;
 
-    bool nextPageAvailable = false;
-
     void init();
     void setWindow();
     void createWidgets();
@@ -55,8 +53,8 @@ protected:
     void connectAll();
     void disconnectAll();
 
-
 public:
+    bool nextPageAvailable = false;
     // Get Functions
     FilteredList* getParent();
 

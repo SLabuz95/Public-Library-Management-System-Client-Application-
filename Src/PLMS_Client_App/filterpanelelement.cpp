@@ -122,7 +122,7 @@ void FilterPanelElement::init(){
         parametersList.addItem("Działanie");
         parametersList.addItem("Data i czas");
         parametersList.addItem("Indeks książki");
-        if(static_cast<AppWindowLoggedInStatus>(parent->getParent()->getParent()->getParent()->getCurrentAppWindowLoggedInStat()) == LOGGED_IN_PANEL_USERS_STAT)
+        if(static_cast<AppWindowLoggedInStatus>(parent->getParent()->getParent()->getParent()->getCurrentAppWindowLoggedInStat()) == LOGGED_IN_PANEL_BOOK_LOG_STAT)
             parametersList.addItem("Uprawnienia");
         parametersList.setCurrentIndex(0);
     }
@@ -252,7 +252,7 @@ void FilterPanelElement::init(BookLogsFileFilter& bookLogsFileFilter){
     parametersList.addItem("Działanie");
     parametersList.addItem("Data i czas");
     parametersList.addItem("Indeks książki");
-    if(static_cast<AppWindowLoggedInStatus>(parent->getParent()->getParent()->getParent()->getCurrentAppWindowLoggedInStat()) == LOGGED_IN_PANEL_USERS_STAT)
+    if(static_cast<AppWindowLoggedInStatus>(parent->getParent()->getParent()->getParent()->getCurrentAppWindowLoggedInStat()) == LOGGED_IN_PANEL_BOOK_LOG_STAT)
         parametersList.addItem("Uprawnienia");
     switch (bookLogsFileFilter.param) {
     case BOOK_LOG_USER_PESEL:
@@ -989,6 +989,7 @@ bool FilterPanelElement::lineEditKeyPressed(QKeyEvent *ev){
             return true;
         case Qt::Key_Space:
             lineEdit->insert(" ");
+            break;
         case Qt::Key_Control:
             return true;
         case Qt::Key_Backspace:

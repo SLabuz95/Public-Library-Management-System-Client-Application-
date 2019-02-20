@@ -16,6 +16,7 @@
 #include"promptpanel.hpp"
 #include"server.hpp"
 #include"app.hpp"
+#include"bookpanel.hpp"
 
 
 OperationListElementBooks::OperationListElementBooks(OperationList *parent, Book* book)

@@ -205,8 +205,10 @@ void ChangePasswordPanel::acceptButtonPressed(){
             QJsonDocument jDoc(userObj);
             bool stop = false;
             while(!stop){
-                if(appWindow->getParent()->getServer().getServerReplyStatus())
+                if(appWindow->getParent()->getServer().getServerReplyStatus()){
+                    SET_PTR_DO(userEdit, nullptr);
                     return;
+                }
             ServerReplyStatus srs = appWindow->getParent()->getServer().setLastRequest(COMMAND_TYPE_CLIENT_EDIT_TEXT, POST, jDoc);
             switch (srs) {
             case SERVER_NO_ERROR:
@@ -223,14 +225,9 @@ void ChangePasswordPanel::acceptButtonPressed(){
                     }
                         break;
                         // _PH_ Check other errors
-                    case RETURN_ERROR_USER_FOUND:
-                    {
-                        appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Podany użytkownik już istnieje."));
-                    }
-                        break;
                     default:
                         //  Prompt Server Error
-                        appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Zmiana hasła nieudana."));
                         break;
                     }
                 }
@@ -262,7 +259,7 @@ void ChangePasswordPanel::acceptButtonPressed(){
         }
         SET_PTR_DO(userEdit, nullptr);
     }else{
-        Dialog dlg(QUESTION_DIALOG, QString("Błędne hasło"), QString("Stare hasło jest niepoprawne"), nullptr, QString("Ok"));
+        Dialog dlg(QUESTION_DIALOG, QString("Błędne hasło"), QString("Stare hasło jest niepoprawne."), nullptr, QString("Ok"));
         dlg.exec();
     }
 }
