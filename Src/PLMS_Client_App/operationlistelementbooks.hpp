@@ -33,8 +33,6 @@ private:
     void commentsButtonPressed();
 
 protected:
-
-
     bool eventMatching(QObject*, QEvent*);
 
 public:

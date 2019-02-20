@@ -30,11 +30,8 @@ private:
     void acceptButtonPressed();
     void cancelButtonPressed();
 
-
 public:
     bool eventMatching(QObject* obj, QEvent* ev);
 
 };
-
-
 #endif // ADDCOMMENTPANEL_HPP

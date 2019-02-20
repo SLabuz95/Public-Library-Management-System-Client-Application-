@@ -33,10 +33,7 @@ private:
     void addCommentButtonPressed();
 
 protected:
-
-
     bool eventMatching(QObject*, QEvent*);
-
 
 public:
     // Funkcja przeładowania elementu

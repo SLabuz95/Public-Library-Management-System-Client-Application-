@@ -57,7 +57,6 @@ private:
     void switchFormatableFields();
 
 protected:
-
     // Funkcja przeładowania elementu
     void reload();
 
@@ -65,7 +64,6 @@ protected:
 
 public:
     bool checkData();
-
     Book* getBook();
     Book* getTempBook();
     void changeMode(DataPanelMode);

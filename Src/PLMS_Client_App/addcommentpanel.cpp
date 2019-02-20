@@ -133,8 +133,8 @@ bool AddCommentPanel::commentEditKeyPressed(QKeyEvent* ev){
 }
 
 void AddCommentPanel::acceptButtonPressed(){
-    if(commentEdit.toPlainText() == QString("\"D\"") || commentEdit.toPlainText().isEmpty()){
-        Dialog dlg(QUESTION_DIALOG, QString("Niedozwolony format"), QString("Komentarz nie może byc pusty ani frazą \"D\""), nullptr, QString("Ok"));
+    if(commentEdit.toPlainText().isEmpty()){
+        Dialog dlg(QUESTION_DIALOG, QString("Niedozwolony format"), QString("Komentarz nie może byc pusty"), nullptr, QString("Ok"));
         dlg.exec();
     }else{
         Book *tempBook = new Book();
@@ -151,8 +151,10 @@ void AddCommentPanel::acceptButtonPressed(){
         QJsonDocument jDoc(userObj);
         bool stop = false;
         while(!stop){
-            if(appWindow->getParent()->getServer().getServerReplyStatus())
+            if(appWindow->getParent()->getServer().getServerReplyStatus()){
+                SET_PTR_DO(tempBook, nullptr);
                 return;
+            }
         ServerReplyStatus srs = appWindow->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_COMMENT_ADD_EDIT_TEXT, POST, jDoc);
         switch (srs) {
         case SERVER_NO_ERROR:
@@ -171,14 +173,9 @@ void AddCommentPanel::acceptButtonPressed(){
                 }
                     break;
                     // _PH_ Check other errors
-                case RETURN_ERROR_USER_FOUND:
-                {
-                    appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Podany użytkownik już istnieje."));
-                }
-                    break;
                 default:
                     //  Prompt Server Error
-                    appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                    appWindow->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Dodanie komentarza nie powiodło się."));
                     break;
                 }
             }
@@ -214,5 +211,3 @@ void AddCommentPanel::acceptButtonPressed(){
 void AddCommentPanel::cancelButtonPressed(){
     parent->done(CANCEL_RESULT);
 }
-
-

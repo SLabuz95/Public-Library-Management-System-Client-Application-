@@ -36,7 +36,6 @@ protected:
 
     bool eventMatching(QObject*, QEvent*);
 
-
 };
 
 #endif // OPERATIONLISTELEMENTREADERS_HPP

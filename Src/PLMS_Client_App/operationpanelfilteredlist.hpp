@@ -34,8 +34,6 @@ private:
 
     protected:
     // Funkcja przeładowania elementu
-
-
     bool eventMatching(QObject*, QEvent*);
 
 public:

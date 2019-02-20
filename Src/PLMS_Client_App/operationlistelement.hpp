@@ -70,7 +70,6 @@ public:
     virtual void generateText(){}
     virtual bool eventMatching(QObject*, QEvent*){return true;}
 
-
 };
 
 
