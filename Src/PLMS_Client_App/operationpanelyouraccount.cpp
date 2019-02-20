@@ -168,8 +168,10 @@ void OperationPanelYourAccount::changeDataButtonPressed(){
                 QJsonDocument jDoc(userObj);
                 bool stop = false;
                 while(!stop){
-                    if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
+                    if(parent->getParent()->getParent()->getServer().getServerReplyStatus()){
+                        SET_PTR_DO(userEdit, nullptr);
                         return;
+                    }
                 ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_CLIENT_EDIT_TEXT, POST, jDoc);
                 switch (srs) {
                 case SERVER_NO_ERROR:
@@ -198,7 +200,7 @@ void OperationPanelYourAccount::changeDataButtonPressed(){
                             break;
                         default:
                             //  Prompt Server Error
-                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Edycja danych nieudana."));
                             break;
                         }
                     }
@@ -282,7 +284,7 @@ void OperationPanelYourAccount::removeAccountButtonPressed(){
                                 // _PH_ Check other errors
                                 default:
                                 //  Prompt Server Error
-                                parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                                parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Usuwanie konta nieudane."));
                                 break;
                             }
                         }

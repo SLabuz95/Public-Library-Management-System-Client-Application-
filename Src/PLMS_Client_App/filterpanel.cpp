@@ -324,6 +324,14 @@ void FilterPanel::findButtonPressed(){
     switch(parent->getFilterType()){
     case FILE_TYPE_BOOKS_FILE:
     {
+        BooksLoggedInSave* savedBooks = nullptr;
+        if(parent->getParent()->getBookPanelParent()){
+            SET_PTR_NDO(savedBooks, parent->getParent()->getBookPanelParent()->getSavedBooks());
+        }else{
+            SET_PTR_NDO(savedBooks, parent->getParent()->getParent()->getSavedBooks());
+        }
+        savedBooks->nextIdBook = 0;
+        savedBooks->bookCurrentPage = 1;
         BookFiltersLoggedInSave* savedBookFilters = nullptr;
         if(parent->getParent()->getBookPanelParent()){
             SET_PTR_NDO(savedBookFilters, parent->getParent()->getBookPanelParent()->getSavedBookFilters());
@@ -348,6 +356,10 @@ void FilterPanel::findButtonPressed(){
         break;
     case FILE_TYPE_CLIENTS_FILE:
     {
+        UsersLoggedInSave* savedUsers = nullptr;
+        SET_PTR_NDO(savedUsers, parent->getParent()->getParent()->getSavedUsers());
+        savedUsers->nextIdUser = 0;
+        savedUsers->userCurrentPage = 1;
         UserFiltersLoggedInSave* savedUserFilters = nullptr;
         SET_PTR_NDO(savedUserFilters, parent->getParent()->getParent()->getSavedUserFilters());
         for(uint i = 0; i < numbOfElements; i++){
@@ -368,6 +380,10 @@ void FilterPanel::findButtonPressed(){
         break;
     case FILE_TYPE_BOOK_LOG_FILE:
     {
+        BookLogsLoggedInSave* savedBookLogs = nullptr;
+        SET_PTR_NDO(savedBookLogs, parent->getParent()->getParent()->getSavedBookLogs());
+        savedBookLogs->nextBookLog = 0;
+        savedBookLogs->bookLogCurrentPage = 1;
         BookLogFiltersLoggedInSave* savedBookLogFilters = nullptr;
         SET_PTR_NDO(savedBookLogFilters, parent->getParent()->getParent()->getSavedBookLogFilters());
         for(uint i = 0; i < numbOfElements; i++){

@@ -27,7 +27,6 @@ private:
     void connectAll();
     void disconnectAll();
 
-
 public:
     uint getActiveIndex();
     void setActiveIndex(uint);

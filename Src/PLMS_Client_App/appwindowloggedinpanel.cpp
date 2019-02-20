@@ -472,7 +472,6 @@ Book* AppWindowLoggedInPanel::getBookDataPtr(){
 }
 
 void AppWindowLoggedInPanel::readDataFromServer(){
-
     bool getPreviousPage = false;
     // Prepare ReadFilesRules
     do{
@@ -686,7 +685,7 @@ void AppWindowLoggedInPanel::readDataFromServer(){
                 // _PH_ Check other errors
             default:
                 //  Prompt Server Error
-                parent->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                parent->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Odczyt danych nieudany."));
                 break;
             }
         }
@@ -716,7 +715,6 @@ void AppWindowLoggedInPanel::readDataFromServer(){
     }
    }
   }while(getPreviousPage);
-
 }
 
 bool AppWindowLoggedInPanel::isLoggedInStatusChanged(){

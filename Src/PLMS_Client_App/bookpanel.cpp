@@ -216,7 +216,7 @@ void BookPanel::readDataFromServer(){
                         // _PH_ Check other errors
                     default:
                         //  Prompt Server Error
-                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Odczyt danych nieudany."));
                         break;
                     }
                 }

@@ -126,11 +126,11 @@ bool OperationPanelAddBook::eventMatching(QObject* obj, QEvent* ev){
     case QEvent::Leave:
     {
         if(obj == &addButton){
-            addButton.setStyleSheet(STYLESHEET_BUTTON_HIGHLIGHT);
+            addButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
             break;
         }
         if(obj == &cancelButton){
-            cancelButton.setStyleSheet(STYLESHEET_BUTTON_HIGHLIGHT);
+            cancelButton.setStyleSheet(STYLESHEET_BUTTON_LOWLIGHT);
             break;
         }
     }
@@ -165,8 +165,10 @@ void OperationPanelAddBook::addButtonPressed(){
             QJsonDocument jDoc(bookObj);
             bool stop = false;
             while(!stop){
-                if(parent->getParent()->getParent()->getServer().getServerReplyStatus())
+                if(parent->getParent()->getParent()->getServer().getServerReplyStatus()){
+                    SET_PTR_DO(bookReg, nullptr);
                     return;
+                }
             ServerReplyStatus srs = parent->getParent()->getParent()->getServer().setLastRequest(COMMAND_TYPE_BOOK_ADD_TEXT, POST, jDoc);
             switch (srs) {
             case SERVER_NO_ERROR:
@@ -187,24 +189,24 @@ void OperationPanelAddBook::addButtonPressed(){
                                 Book* book = new Book(rjA.at(0).toObject());
                                 if(book->getBookId() != 0 && book->checkBookParameters()){
                                     // Move to Logged In Stat
-                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_WARNING, QString("Dodano książkę o indkesie: ") + book->getParam(BOOK_ID));
+                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_WARNING, QString("Dodano książkę o indeksie: ") + book->getParam(BOOK_ID));
                                     parent->setAppWindowLoggedInStatus(parent->getLastAppWindowLoggedInStat(), true);
                                 }else{
-                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd przetwarzania danych - Dodawania książki nieudane."));
+                                    parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd przetwarzania danych - Dodawanie książki nieudane."));
                                 }
                                 SET_PTR_DO(book, nullptr);
                             }
                             // ______________________________________________________________________________________________________
                         }else{
                             //  Prompt Server Error
-                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera - Dodawania książki nieudane."));
+                            parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera - Dodawanie książki nieudane."));
                         }
                     }
                         break;
                         // _PH_ Check other errors
                     default:
                         //  Prompt Server Error
-                        parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Dodawania książki nieudane."));
+                        parent->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Dodawanie książki nieudane."));
                         break;
                     }
                 }

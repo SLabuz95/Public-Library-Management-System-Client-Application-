@@ -259,13 +259,14 @@ bool OperationListElementLibrary::eventMatching(QObject *obj, QEvent *ev){
 }
 
 
-void OperationListElementLibrary::reserveBookButtonPressed(){
+void OperationListElementLibrary::reserveBookButtonPressed(){    
     AppWindowLoggedInPanel* appWindow = static_cast<AppWindowLoggedInPanel*>(parent->getParent()->getParent()->getParent());
-    Book bookSend;
+    if(appWindow->getUser()->getNumbOfBookId() < 5){
+        parent->nextPageAvailable = false;
+        Book bookSend;
     // Try to remove account
         bookSend.setBookId(book->getBookId());
         bookSend.setParam(BOOK_USER_ID, appWindow->getUser()->getParam(USER_ID));
-
     // Try to remove account
      // Create Json User
             QJsonArray jA;
@@ -295,14 +296,13 @@ void OperationListElementLibrary::reserveBookButtonPressed(){
                         tempUser.setUserId(user->getUserId());
                         tempUser.setParam(USER_BOOK_ID, book->getParam(BOOK_ID));
                         user->merge(tempUser);
-
                         // __________________________________________________________________
                     }
                         break;
                         // _PH_ Check other errors
                         default:
                         //  Prompt Server Error
-                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Tworzenie konta nieudane."));
+                        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Błąd serwera #" + QString::number(obj.value(RETURN_ERROR_JSON_VARIABLE_TEXT).toString().toUInt()) + " - Rezerwacja książki nieudana."));
                         break;
                     }
                 }
@@ -332,6 +332,10 @@ void OperationListElementLibrary::reserveBookButtonPressed(){
             }
            }
     parent->getParent()->reload(false);
+    }else{
+        appWindow->getParent()->getPromptPanel().addPrompt(PROMPT_TYPE_STANDARD_ERROR, QString("Osiągnięto limit wypożyczonych/zarezerwowanych książek"));
+    }
+
 }
 
 void OperationListElementLibrary::commentsButtonPressed(){
